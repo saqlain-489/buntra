@@ -164,4 +164,12 @@ answer objections, then make the emotional close and present the form.
 - **Verify in the real browser, not just a build.** Use the chrome-devtools tools to load the page,
   screenshot, and drive the affected flow. React hover/enter state only reacts to a *real* cursor
   (the `hover` tool), not synthetic dispatched events. End with a `Verified:` / `Not verified:` line.
+- **Responsive is mandatory (never ship desktop-only).** Every redesign or new build MUST be checked
+  at phone (~390px), tablet (~800px), and desktop widths before it is called done. Rules:
+  - No horizontal overflow, no overlapping elements, tap targets ≥ 44px, primary CTA reachable.
+  - Small screens must share the SAME premium vibe as desktop, not a stripped/broken version. If a
+    desktop-only visual (like the hero 3D showcase) can't fit, give mobile a tasteful equivalent, not nothing.
+  - Scope desktop-only tricks (align-self, translate, multi-column grids) behind breakpoints (`lg:` etc.)
+    so they don't distort the stacked mobile layout. Nav: full links/CTA appear at `lg`, hamburger below.
+  - Actually resize the browser (resize_page) to 390 / 800 / 1280 and screenshot each before finishing.
 - Keep responses concise; explain key decisions, don't narrate obvious ones.

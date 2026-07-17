@@ -2,17 +2,13 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { List, X, ArrowUpRight } from '@phosphor-icons/react';
 import { brand, cta, navLinks } from '@/lib/content';
 
-// Small roofline mark: an accent roof inside an ink tile. On-theme and geometric,
-// so it reads without a hand-drawn logo.
+// Buntra monogram mark.
 function Mark() {
-  return (
-    <span className="grid h-8 w-8 place-items-center rounded-lg bg-[var(--color-ink)]">
-      <span className="h-0 w-0 border-x-[7px] border-b-[8px] border-x-transparent border-b-[var(--color-accent)]" />
-    </span>
-  );
+  return <Image src="/buntra-icon.png" alt="" width={44} height={44} className="h-11 w-11" priority />;
 }
 
 export function Nav() {
@@ -86,7 +82,7 @@ export function Nav() {
             </span>
           </Link>
 
-          <nav className="hidden items-center gap-7 justify-self-center md:flex">
+          <nav className="col-start-2 hidden items-center gap-7 justify-self-center lg:flex">
             {navLinks.map((l) => {
               const isActive = active === l.href;
               return (
@@ -107,17 +103,17 @@ export function Nav() {
             })}
           </nav>
 
-          <div className="flex items-center gap-2 justify-self-end">
+          <div className="col-start-3 flex items-center gap-2 justify-self-end">
             <Link
               href={cta.href}
-              className="group hidden items-center gap-1.5 rounded-xl bg-[var(--color-ink)] px-5 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/15 md:inline-flex"
+              className="group hidden items-center gap-1.5 rounded-xl bg-[var(--color-ink)] px-5 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/15 lg:inline-flex"
             >
               {cta.label}
               <ArrowUpRight size={15} weight="bold" className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
 
             <button
-              className="grid h-10 w-10 place-items-center rounded-xl text-[var(--color-ink)] md:hidden"
+              className="grid h-10 w-10 place-items-center rounded-xl text-[var(--color-ink)] lg:hidden"
               onClick={() => setOpen((v) => !v)}
               aria-label={open ? 'Close menu' : 'Open menu'}
               aria-expanded={open}
@@ -128,7 +124,7 @@ export function Nav() {
         </div>
 
         {open && (
-          <div className="mx-4 mt-2 rounded-2xl border border-[var(--color-line)] bg-white p-2 shadow-[0_12px_34px_rgba(16,22,29,0.10)] md:hidden">
+          <div className="mx-4 mt-2 rounded-2xl border border-[var(--color-line)] bg-white p-2 shadow-[0_12px_34px_rgba(16,22,29,0.10)] lg:hidden">
             {navLinks.map((l) => {
               const isActive = active === l.href;
               return (

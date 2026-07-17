@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight } from '@phosphor-icons/react/dist/ssr';
 import { Container } from './primitives';
 import { brand, cta, navLinks } from '@/lib/content';
@@ -9,9 +10,7 @@ export function Footer() {
       <Container className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <div className="flex items-center gap-2.5">
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-[var(--color-ink)]">
-              <span className="h-0 w-0 border-x-[7px] border-b-[8px] border-x-transparent border-b-[var(--color-accent)]" />
-            </span>
+            <Image src="/buntra-icon.png" alt="" width={32} height={32} className="h-8 w-8" />
             <span className="font-[family-name:var(--font-display)] text-base font-extrabold tracking-[-0.03em] text-[var(--color-ink)]">
               {brand.full}
             </span>

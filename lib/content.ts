@@ -24,8 +24,9 @@ export const navLinks = [
 
 export const hero = {
   eyebrow: 'Websites for roofing contractors',
-  headline: ['Roofing websites that', 'book more jobs.'],
-  sub: 'Fast, mobile-first sites that turn Google searches into phone calls. Live in 7 days, pay nothing until you see it.',
+  // headline[0] = lead, headline[1] = the accent-underlined outcome.
+  headline: ['A roofing website that makes the', 'phone ring.'],
+  sub: 'Fast, mobile-first websites built for roofers. See yours free before you pay a cent, live in 7 days.',
 };
 
 export const problem = {

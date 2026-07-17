@@ -17,6 +17,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
+  icons: { icon: '/buntra-icon.png' },
   title: 'Buntra Web Studio | Roofing websites that book jobs',
   description:
     'We build fast, mobile-first websites for roofing contractors that turn Google searches into phone calls. Live in 7 days. You pay nothing until you see it.',

@@ -213,34 +213,52 @@ function CurvedShowcase() {
   );
 }
 
+// Small-screen showcase: a static fan of two product cards (same cards as the
+// desktop orbit, without the drag/animation) so tablet + phone keep the vibe.
+function MobileShowcase() {
+  return (
+    <div className="relative mx-auto w-full max-w-[440px] px-1 pb-4 pt-2 lg:hidden" aria-hidden>
+      <span className="pointer-events-none absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,var(--color-accent),transparent_65%)] opacity-[0.12] blur-2xl" />
+      <div className="absolute right-2 top-0 w-[62%] rotate-[5deg]">
+        <ShowcaseCard index={1} />
+      </div>
+      <div className="relative ml-1 mt-16 w-[82%] -rotate-[2deg]">
+        <ShowcaseCard index={2} />
+      </div>
+    </div>
+  );
+}
+
 export function Hero() {
   return (
     <section id="top" className="overflow-hidden bg-[var(--color-surface)]">
-      <div className="mx-auto grid max-w-[1440px] items-center gap-10 px-6 pb-16 pt-12 sm:px-10 md:pt-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-12 lg:px-12 lg:pb-20">
-        <div className="max-w-[700px]">
+      <div className="mx-auto grid max-w-[1440px] items-center gap-10 px-6 pb-16 pt-10 sm:px-10 md:grid-cols-2 md:pt-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-12 lg:px-12 lg:pb-20">
+        <div className="max-w-[700px] lg:self-center lg:-translate-y-[10%]">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-line)] bg-[var(--color-accent-soft)] px-3 py-1.5 text-xs font-semibold text-[var(--color-accent-strong)]">
             {hero.eyebrow}
           </span>
 
-          <h1 className={`${display} mt-8 max-w-[16ch] text-[clamp(2.6rem,5.5vw,4.6rem)] font-extrabold leading-[1.02] tracking-[-0.03em] text-[var(--color-ink)]`}>
-            {hero.headline[0]}<br /><span className="accent-underline">{hero.headline[1]}</span>
+          <h1 className={`${display} mt-6 max-w-[18ch] text-balance text-[clamp(2.2rem,4.4vw,3.5rem)] font-extrabold leading-[1.04] tracking-[-0.03em] text-[var(--color-ink)]`}>
+            {hero.headline[0]} <span className="accent-underline">{hero.headline[1]}</span>
           </h1>
-          <p className="mt-5 max-w-xl text-[15px] leading-7 text-[var(--color-body)] sm:text-base">
+          <p className="mt-4 max-w-xl text-[15px] leading-7 text-[var(--color-body)] sm:text-base">
             {hero.sub}
           </p>
 
-          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-            <Link href={cta.href} className="group inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--color-ink)] px-6 py-3.5 text-[15px] font-semibold text-white transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/15">
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+            <Link href={cta.href} className="group inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-[var(--color-ink)] px-5 py-3.5 text-[15px] font-semibold text-white transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/15">
               {cta.label} <ArrowRight size={16} weight="bold" className="transition-transform group-hover:translate-x-0.5" />
             </Link>
-            <Link href="#process" className="group inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--color-line)] bg-white px-6 py-3.5 text-[15px] font-semibold text-[var(--color-ink)] transition hover:-translate-y-0.5 hover:border-[var(--color-ink)]/40 hover:shadow-md hover:shadow-stone-900/5">
+            <Link href="#process" className="group inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-[var(--color-line)] bg-white px-5 py-3.5 text-[15px] font-semibold text-[var(--color-ink)] transition hover:-translate-y-0.5 hover:border-[var(--color-ink)]/40 hover:shadow-md hover:shadow-stone-900/5">
               See how it works <ArrowRight size={16} weight="bold" className="transition-transform group-hover:translate-x-0.5" />
             </Link>
           </div>
-          <p className="mt-4 text-xs font-medium text-[var(--color-muted)]">Live in 7 days &middot; $0 due until you approve the design</p>
         </div>
 
-        <CurvedShowcase />
+        <div className="relative w-full">
+          <CurvedShowcase />
+          <MobileShowcase />
+        </div>
       </div>
     </section>
   );
