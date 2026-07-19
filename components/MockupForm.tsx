@@ -6,7 +6,7 @@ import { CheckCircle, CircleNotch } from '@phosphor-icons/react';
 type State = 'idle' | 'submitting' | 'success' | 'error';
 
 const field =
-  'w-full rounded-xl border border-[var(--color-line)] bg-white px-4 py-3 text-[15px] text-[var(--color-ink)] placeholder:text-stone-500 outline-none transition focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/25';
+  'w-full rounded-xl border border-[var(--color-line)] bg-white px-4 py-3 text-[15px] text-[var(--color-ink)] placeholder:text-slate-500 outline-none transition focus:border-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/25';
 
 export function MockupForm() {
   const [state, setState] = useState<State>('idle');

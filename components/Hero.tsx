@@ -38,7 +38,7 @@ function ShowcaseCard({ index }: { index: number }) {
   if (index === 1) {
     return (
       <MiniWindow className="relative aspect-[20/13] bg-[var(--color-ink)] p-5 text-white">
-        <div className="absolute right-[-5px] top-1/2 h-32 w-32 -translate-y-1/2 opacity-80 [background-image:radial-gradient(#e59500_1.6px,transparent_1.7px)] [background-size:12px_12px]" />
+        <div className="absolute right-[-5px] top-1/2 h-32 w-32 -translate-y-1/2 opacity-80 [background-image:radial-gradient(#0284c7_1.6px,transparent_1.7px)] [background-size:12px_12px]" />
         <span className="relative inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--color-accent)]">
           <i className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)] shadow-[0_0_12px_var(--color-accent)]" /> Click-to-call ready
         </span>
@@ -230,10 +230,10 @@ export function Hero() {
           </p>
 
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-            <Link href={cta.href} className="group inline-flex items-center justify-center gap-2 rounded-full bg-[var(--color-ink)] px-6 py-3.5 text-[15px] font-semibold text-white transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/15">
+            <Link href={cta.href} className="group inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--color-ink)] px-6 py-3.5 text-[15px] font-semibold text-white transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/15">
               {cta.label} <ArrowRight size={16} weight="bold" className="transition-transform group-hover:translate-x-0.5" />
             </Link>
-            <Link href="#process" className="group inline-flex items-center justify-center gap-2 rounded-full border border-[var(--color-line)] bg-white px-6 py-3.5 text-[15px] font-semibold text-[var(--color-ink)] transition hover:-translate-y-0.5 hover:border-[var(--color-ink)]/40 hover:shadow-md hover:shadow-stone-900/5">
+            <Link href="#process" className="group inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--color-line)] bg-white px-6 py-3.5 text-[15px] font-semibold text-[var(--color-ink)] transition hover:-translate-y-0.5 hover:border-[var(--color-ink)]/40 hover:shadow-md hover:shadow-stone-900/5">
               See how it works <ArrowRight size={16} weight="bold" className="transition-transform group-hover:translate-x-0.5" />
             </Link>
           </div>

@@ -23,7 +23,7 @@ export function FinalCta() {
             <div className="mt-9 flex justify-center">
               <Link
                 href={cta.href}
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-[var(--color-ink)] px-8 py-4 text-base font-semibold text-white transition hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/20"
+                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--color-ink)] px-8 py-4 text-base font-semibold text-white transition hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/20"
               >
                 {cta.label}
                 <ArrowRight size={18} weight="bold" className="transition-transform group-hover:translate-x-0.5" />

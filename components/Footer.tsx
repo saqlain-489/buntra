@@ -21,7 +21,7 @@ export function Footer() {
           </p>
           <Link
             href={cta.href}
-            className="group mt-6 inline-flex items-center gap-2 rounded-full bg-[var(--color-ink)] px-5 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/15"
+            className="group mt-6 inline-flex items-center gap-2 rounded-xl bg-[var(--color-ink)] px-5 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/15"
           >
             {cta.label}
             <ArrowRight size={15} weight="bold" className="transition-transform group-hover:translate-x-0.5" />

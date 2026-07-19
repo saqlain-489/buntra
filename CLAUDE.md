@@ -30,33 +30,35 @@ Primary CTA everywhere, one intent, one label: **"Get my free mockup"** → `#mo
 
 ---
 
-## Design system — "Amber + Ink" (locked identity)
+## Design system — "Slate & Azure" (locked identity)
 
-Defined in `app/globals.css` under `@theme`. Warm, editorial, confident. Near-black type on
-warm off-white, amber used as a **graphic pop only** (never low-contrast text on white).
+Defined in `app/globals.css` under `@theme`. Cool, editorial, confident. Near-black slate type on
+a cool off-white, azure used as a **graphic pop only** (never low-contrast text on white). The
+palette reads as a modern tech studio that helps roofers: slate = clean and professional, azure =
+approachable, dependable tech-trust.
 
 | Token | Value | Use |
 |---|---|---|
-| `--color-ink` | `#0f0f0f` | dominant near-black: headings, buttons, dark tiles |
-| `--color-body` | `#57534e` | warm stone body text |
-| `--color-muted` | `#a8a29e` | captions, helper text |
-| `--color-line` | `#e8e3da` | warm hairline borders / dividers |
-| `--color-surface` | `#fbfaf7` | base warm off-white |
-| `--color-surface-alt` | `#f3f0e8` | alternating deeper section bg |
-| `--color-accent` | `#e59500` | bright amber — icons, underlines, dots, big numbers, hovers |
-| `--color-accent-strong` | `#b45309` | deeper amber that passes WCAG AA as small text on light |
-| `--color-accent-soft` | `#fdf3e3` | soft amber wash for tinted cells / pills |
-| `--color-ink-deep` + `-line`/`-body` | warm near-black set | the ONE dark section (Differentiators) |
+| `--color-ink` | `#10161d` | dominant cool near-black: headings, buttons, dark tiles |
+| `--color-body` | `#48525f` | slate body text |
+| `--color-muted` | `#949daa` | captions, helper text |
+| `--color-line` | `#e2e6ec` | cool hairline borders / dividers |
+| `--color-surface` | `#f6f8fa` | base cool off-white |
+| `--color-surface-alt` | `#eceff3` | alternating deeper section bg |
+| `--color-accent` | `#0284c7` | bright azure — icons, underlines, dots, big numbers, hovers |
+| `--color-accent-strong` | `#036aa0` | deeper azure that passes WCAG AA as small text on light |
+| `--color-accent-soft` | `#e2f2fb` | soft azure wash for tinted cells / pills |
+| `--color-ink-deep` + `-line`/`-body` | cool near-black set (`#0f151c` …) | the ONE dark section (Differentiators) |
 
 **Fonts:** `--font-display` = **Archivo** (600–900, headings), `--font-sans` = **Plus Jakarta Sans** (body). Reference display font as `font-[family-name:var(--font-display)]`.
 
-**Shape scale (consistency lock):** interactive = `rounded-xl` (12px); cards/containers = `rounded-2xl` (20px); pills/CTAs = `rounded-full`. Do not mix other radii.
+**Shape scale (consistency lock):** every button/CTA/interactive control = `rounded-xl` (12px) — buttons are rectangles, not pills; cards/containers = `rounded-2xl` (20px); the scrolled nav card = `rounded-[20px]`; only small non-interactive labels (eyebrow pills, tags, badges) and genuinely circular elements (icon toggles, number/step circles, avatars, dots) use `rounded-full`. Do not mix other radii.
 
-**Buttons are INK, not amber** (matches the hero). The lead form's submit is ink too. On the
-dark section, invert to a white button with ink text. Amber is the accent, never the button fill.
+**Buttons are INK, not azure** (matches the hero). The lead form's submit is ink too. On the
+dark section, invert to a white button with ink text. Azure is the accent, never the button fill.
 
-**Color consistency lock:** amber is the only accent on the whole page. Do not introduce a
-second accent hue (no blue/teal/purple CTA or badge anywhere).
+**Color consistency lock:** azure is the only accent on the whole page. Do not introduce a
+second accent hue (no amber/green/purple CTA or badge anywhere).
 
 **Theme lock:** the page is light warm throughout, with exactly **one deliberate dark moment**
 (the Differentiators / "Why us" section). Do not add more inverted sections; do not flip the
@@ -102,7 +104,7 @@ local business owners** who distrust "agencies."
 8. **Specificity earns belief.** Speak roofing: storm damage, insurance claims, click-to-call,
    local SEO, "the phone rings." Concrete beats generic ("book more jobs" > "grow your business").
 9. **Visual hierarchy guides the eye (F/Z pattern).** One clear focal point per section: a bold
-   Archivo headline, then support. Use the amber pop (underline, dot, big number) to draw the eye to
+   Archivo headline, then support. Use the azure pop (underline, dot, big number) to draw the eye to
    the single most important thing — the Von Restorff effect (the standout is remembered).
 10. **Make the CTA effortless (Fitts's Law).** Big tap targets, sticky nav CTA, form asks for the
     minimum (name, business, contact). Every extra field costs leads.
@@ -111,15 +113,15 @@ local business owners** who distrust "agencies."
 12. **Mobile is the primary screen.** Most roofing searches are on a phone. Design mobile-first,
     verify layouts collapse cleanly, keep the CTA reachable with a thumb.
 
-### Color psychology (why Amber + Ink)
-- **Amber/orange** = energy, warmth, action, affordability, approachability — and it evokes
-  construction/hi-vis/safety, which fits roofing. It's the "do it now" accent: CTAs' neighbors,
-  highlights, the standout number.
-- **Near-black ink** = authority, premium, seriousness, trust. It grounds the warmth so the page
-  reads professional, not cheap.
-- **Warm off-white** = clean, honest, calm, high-end editorial.
-- The blend says: *a serious studio that gets results, but is human and easy to work with* — exactly
-  what a wary local contractor needs to feel. Keep this meaning intact; don't cool it down.
+### Color psychology (why Slate & Azure)
+- **Azure/blue** = trust, dependability, competence, and modern tech. It is the color banks,
+  insurers, and software companies use to say "you can rely on us." It positions Buntra as the
+  tech partner, not a roofing company. Used as the pop: icons, underlines, dots, the standout number.
+- **Slate / cool near-black** = authority, precision, professional seriousness. Clean and engineered,
+  not cheap.
+- **Cool off-white** = calm, crisp, high-trust, SaaS-grade.
+- The blend says: *a sharp, modern tech studio a roofer can trust to make them money online* — not a
+  hi-vis construction brand. Keep it cool and credible; do not warm it back toward amber/orange.
 
 ---
 
@@ -138,7 +140,7 @@ local business owners** who distrust "agencies."
 - **Real images only** (`picsum.photos/seed/...` placeholders for now, `next/image`). No div-based fake
   screenshots, no hand-drawn decorative SVGs. Replace picsum seeds with real photos before launch.
 - **Contrast (WCAG AA).** Every button label, form field, placeholder, and helper text must pass on its
-  background. Amber as small text on white must use `--color-accent-strong`.
+  background. Azure as small text on white must use `--color-accent-strong`.
 - Match the existing code's comment density and idioms. Comment only non-obvious logic, one line max.
 
 ---

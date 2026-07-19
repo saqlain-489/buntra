@@ -43,7 +43,7 @@ export function Button({ href, children, variant = 'primary', className = '' }: 
     'inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-[15px] font-semibold whitespace-nowrap transition-all duration-200 hover:-translate-y-0.5 active:translate-y-[1px]';
   const styles =
     variant === 'primary'
-      ? 'bg-[var(--color-ink)] text-white shadow-sm shadow-black/10 hover:bg-[#262421] hover:shadow-lg hover:shadow-black/20'
+      ? 'bg-[var(--color-ink)] text-white shadow-sm shadow-black/10 hover:bg-[#1c232e] hover:shadow-lg hover:shadow-black/20'
       : 'bg-white text-[var(--color-ink)] ring-1 ring-[var(--color-line)] hover:ring-[var(--color-ink)]/40';
   return (
     <Link href={href} className={`${base} ${styles} ${className}`}>

@@ -75,7 +75,7 @@ export function Process() {
                       className={`${display} pointer-events-none absolute bottom-1 right-5 z-10 text-[5.5rem] font-extrabold leading-none tracking-[-0.04em] transition-colors duration-500 sm:text-[7rem] ${
                         isActive
                           ? 'text-[var(--color-accent)]'
-                          : 'text-[var(--color-accent)] md:text-[#e8e2d7]'
+                          : 'text-[var(--color-accent)] md:text-[#dde3ea]'
                       }`}
                     >
                       .0{i + 1}

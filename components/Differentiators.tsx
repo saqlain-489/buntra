@@ -71,7 +71,7 @@ export function Differentiators() {
             </div>
             <Link
               href={cta.href}
-              className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-[15px] font-semibold text-[var(--color-ink)] transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/25"
+              className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 text-[15px] font-semibold text-[var(--color-ink)] transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/25"
             >
               {cta.label}
               <ArrowRight size={16} weight="bold" className="transition-transform group-hover:translate-x-0.5" />

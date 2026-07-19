@@ -1,33 +1,33 @@
 @import "tailwindcss";
 
-/* Buntra design system, 2026 agency: Amber + Ink. Near-black editorial type on a
-   warm off-white, with a bright-amber accent used as a GRAPHIC pop (underlines,
+/* Buntra design system, 2026 agency: Slate & Azure. Cool near-black editorial type
+   on a cool off-white, with a bright-azure accent used as a GRAPHIC pop (underlines,
    icons on ink tiles, dots), never as low-contrast text on white. One theme, one
    accent. Radius: interactive 12px, containers 20px. */
 @theme {
-  --color-ink: #0f0f0f;          /* true near-black, the dominant color */
-  --color-body: #57534e;         /* warm stone body text */
-  --color-muted: #a8a29e;        /* captions / helper */
-  --color-line: #e8e3da;         /* warm hairline borders */
-  --color-surface: #fbfaf7;      /* warm off-white base */
-  --color-surface-alt: #f3f0e8;  /* deeper warm alt sections */
+  --color-ink: #10161d;          /* cool near-black, the dominant color */
+  --color-body: #48525f;         /* slate body text */
+  --color-muted: #949daa;        /* captions / helper */
+  --color-line: #e2e6ec;         /* cool hairline borders */
+  --color-surface: #f6f8fa;      /* cool off-white base */
+  --color-surface-alt: #eceff3;  /* deeper cool alt sections */
 
-  /* Amber accent. `accent` = bright, for graphic use (icons on ink, underlines,
-     dots, hovers). `accent-strong` = deeper amber that passes WCAG AA as small
-     text on light (pills, prices, links). Buttons use ink, not amber. */
-  --color-accent: #e59500;
-  --color-accent-strong: #b45309;
-  --color-accent-hover: #cc8400;
-  --color-accent-soft: #fdf3e3;
-  /* Buttons are ink, not amber (keeps parity with the hero). This token exists so
+  /* Azure accent. `accent` = bright, for graphic use (icons on ink, underlines,
+     dots, hovers). `accent-strong` = deeper azure that passes WCAG AA as small
+     text on light (pills, links). Buttons use ink, not azure. */
+  --color-accent: #0284c7;
+  --color-accent-strong: #036aa0;
+  --color-accent-hover: #0273ad;
+  --color-accent-soft: #e2f2fb;
+  /* Buttons are ink, not azure (keeps parity with the hero). This token exists so
      the lead form's submit stays consistent with every other CTA on the page. */
   --color-accent-cta: var(--color-ink);
 
-  /* One deliberate dark moment: the "why choose us" section. Warm near-black so it
-     reads as the same family as the ink cards in the hero, not a cold slab. */
-  --color-ink-deep: #16130d;
-  --color-ink-line: #2c2820;     /* hairlines on the dark section */
-  --color-ink-body: #d8d2c6;     /* body text on the dark section */
+  /* One deliberate dark moment: the "why choose us" section. Cool near-black so it
+     reads as the same family as the ink surfaces elsewhere, a true slate slab. */
+  --color-ink-deep: #0f151c;
+  --color-ink-line: #232b35;     /* hairlines on the dark section */
+  --color-ink-body: #aeb8c5;     /* body text on the dark section */
 
   --font-display: var(--font-archivo);
   --font-sans: var(--font-jakarta);
