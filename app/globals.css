@@ -65,7 +65,30 @@ body {
   background-size: 100% 2px;
 }
 
+/* Kinetic marquee (Problem section). Track holds two identical halves; moving it
+   -50% loops seamlessly. */
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+/* Services showcase: staggered text reveal (blur + fade + rise) and screen fade. */
+@keyframes svcText {
+  from { opacity: 0; transform: translateY(16px); filter: blur(10px); }
+  to   { opacity: 1; transform: translateY(0);   filter: blur(0); }
+}
+@keyframes svcFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .taste-marquee { animation-play-state: paused; }
+  [data-marquee] { animation: none !important; }
+  [data-svctext], [data-svcfade] {
+    animation: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
 }

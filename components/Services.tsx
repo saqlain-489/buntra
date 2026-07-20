@@ -1,29 +1,214 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import {
-  DeviceMobile,
-  Phone,
-  CloudLightning,
-  MapPin,
-  MagnifyingGlass,
-  Star,
-} from '@phosphor-icons/react/dist/ssr';
+import Link from 'next/link';
+import { ArrowUpRight } from '@phosphor-icons/react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
 import { Container, Section, Heading } from './primitives';
 import { Reveal } from './Reveal';
-import { services } from '@/lib/content';
+import { services, cta } from '@/lib/content';
 
-const s = services.items;
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-function IconTile({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
+const display = 'font-[family-name:var(--font-display)]';
+const slides = services.slides;
+const screen = (seed: string) => `https://picsum.photos/seed/${seed}/620/1280?grayscale`;
+const num = (i: number) => String(i + 1).padStart(2, '0');
+
+function Phone({ seed, keyed, className = '' }: { seed: string; keyed?: number; className?: string }) {
   return (
-    <span
-      className={`inline-grid h-11 w-11 place-items-center rounded-xl ${
-        dark
-          ? 'bg-white/10 text-[var(--color-accent)] ring-1 ring-white/15'
-          : 'bg-white text-[var(--color-accent)] ring-1 ring-[var(--color-line)]'
-      }`}
-    >
-      {children}
-    </span>
+    <div className={`relative aspect-[300/620] rounded-[2.6rem] bg-[var(--color-ink)] p-2.5 shadow-[0_40px_90px_rgba(16,22,29,0.28)] ${className}`}>
+      <div className="relative h-full w-full overflow-hidden rounded-[2.05rem] bg-[var(--color-surface-alt)]">
+        <span className="absolute left-1/2 top-2.5 z-10 h-5 w-24 -translate-x-1/2 rounded-full bg-[var(--color-ink)]" />
+        <Image
+          key={keyed}
+          src={screen(seed)}
+          alt=""
+          fill
+          sizes="300px"
+          data-svcfade
+          className="object-cover [animation:svcFade_.5s_ease_both]"
+        />
+      </div>
+    </div>
+  );
+}
+
+// Desktop: sticky phone, scroll drives the active slide, staggered text + giant number.
+function Showcase() {
+  const track = useRef<HTMLDivElement>(null);
+  const phone = useRef<HTMLDivElement>(null);
+  const idxRef = useRef(0);
+  const reduce = useRef(false);
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    reduce.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }, []);
+
+  useGSAP(
+    () => {
+      const st = ScrollTrigger.create({
+        trigger: track.current,
+        start: 'top top',
+        end: 'bottom bottom',
+        onUpdate: (self) => {
+          const i = Math.min(slides.length - 1, Math.floor(self.progress * slides.length));
+          if (i !== idxRef.current) {
+            idxRef.current = i;
+            setActive(i);
+          }
+        },
+      });
+      return () => st.kill();
+    },
+    { scope: track }
+  );
+
+  // 3D tilt tied to cursor (no re-render; writes transform directly).
+  const onMove = (e: React.PointerEvent) => {
+    if (reduce.current || !phone.current) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width - 0.5;
+    const py = (e.clientY - r.top) / r.height - 0.5;
+    phone.current.style.transform = `perspective(1000px) rotateY(${px * 10}deg) rotateX(${-py * 8}deg)`;
+  };
+  const onLeave = () => {
+    if (phone.current) phone.current.style.transform = 'perspective(1000px) rotateY(0) rotateX(0)';
+  };
+
+  const goTo = (i: number) => {
+    const t = track.current;
+    if (!t) return;
+    const top = t.getBoundingClientRect().top + window.scrollY;
+    const target = top + ((i + 0.5) / slides.length) * (t.offsetHeight - window.innerHeight);
+    window.scrollTo({ top: target, behavior: reduce.current ? 'auto' : 'smooth' });
+  };
+
+  const slide = slides[active];
+
+  return (
+    <div ref={track} className="relative hidden lg:block" style={{ height: `${slides.length * 80}vh` }}>
+      <div
+        onPointerMove={onMove}
+        onPointerLeave={onLeave}
+        className="sticky top-0 flex h-screen items-center overflow-hidden pt-[76px]"
+      >
+        {/* ambient azure glow behind the phone */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute left-[6%] top-1/2 h-[460px] w-[460px] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,var(--color-accent),transparent_60%)] opacity-[0.14] blur-3xl"
+        />
+        {/* giant number */}
+        <span
+          key={`n${active}`}
+          aria-hidden
+          data-svcfade
+          className={`${display} pointer-events-none absolute bottom-[-5vh] right-[1vw] text-[23vw] font-extrabold leading-none tracking-tight text-[var(--color-ink)]/[0.045] [animation:svcFade_.5s_ease_both]`}
+        >
+          {num(active)}
+        </span>
+
+        <Container className="relative">
+          <div className="grid grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] items-center gap-16">
+            <div className="flex justify-center [perspective:1000px]">
+              <div
+                ref={phone}
+                className="aspect-[300/620] h-[min(520px,64vh)] transition-transform duration-300 ease-out will-change-transform"
+              >
+                <Phone seed={slide.seed} keyed={active} className="h-full w-full" />
+              </div>
+            </div>
+
+            <div key={`t${active}`} className="max-w-xl">
+              <span
+                data-svctext
+                className="mb-6 block h-1 w-10 rounded-full bg-[var(--color-accent)] [animation:svcText_.6s_cubic-bezier(.16,1,.3,1)_both]"
+              />
+              <h3
+                data-svctext
+                style={{ animationDelay: '.06s' }}
+                className={`${display} text-3xl font-bold leading-[1.08] tracking-tight text-[var(--color-ink)] [animation:svcText_.6s_cubic-bezier(.16,1,.3,1)_both] sm:text-4xl md:text-[2.6rem]`}
+              >
+                {slide.title}
+              </h3>
+              <p
+                data-svctext
+                style={{ animationDelay: '.16s' }}
+                className="mt-5 max-w-md text-lg leading-relaxed text-[var(--color-body)] [animation:svcText_.6s_cubic-bezier(.16,1,.3,1)_both]"
+              >
+                {slide.desc}
+              </p>
+              <Link
+                href={cta.href}
+                data-svctext
+                style={{ animationDelay: '.26s' }}
+                className="group mt-8 inline-flex items-center gap-2 rounded-xl bg-[var(--color-ink)] px-6 py-3.5 text-[15px] font-semibold text-white transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/15 [animation:svcText_.6s_cubic-bezier(.16,1,.3,1)_both]"
+              >
+                {cta.label}
+                <ArrowUpRight size={16} weight="bold" className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
+            </div>
+          </div>
+
+        </Container>
+
+        {/* pagination dots */}
+        <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 items-center gap-2.5">
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              aria-label={`Go to ${slides[i].title}`}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                i === active ? 'w-7 bg-[var(--color-accent)]' : 'w-2 bg-[var(--color-line)] hover:bg-[var(--color-muted)]'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Below lg: clean stacked slides (no pinning), each revealed on scroll.
+function Stacked() {
+  return (
+    <div className="mt-12 space-y-16 lg:hidden">
+      {slides.map((s, i) => (
+        <Reveal key={s.title}>
+          <div className="grid gap-7 sm:grid-cols-2 sm:items-center sm:gap-10">
+            <div className="relative flex justify-center">
+              <span
+                aria-hidden
+                className="pointer-events-none absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,var(--color-accent),transparent_62%)] opacity-[0.12] blur-3xl"
+              />
+              <Phone seed={s.seed} className="relative w-[230px]" />
+            </div>
+            <div>
+              <span className="mb-4 block h-1 w-10 rounded-full bg-[var(--color-accent)]" />
+              <span className={`${display} text-sm font-bold text-[var(--color-accent-strong)]`}>{num(i)}</span>
+              <h3 className={`${display} mt-2 text-3xl font-bold leading-[1.08] tracking-tight text-[var(--color-ink)]`}>
+                {s.title}
+              </h3>
+              <p className="mt-4 text-[15px] leading-relaxed text-[var(--color-body)]">{s.desc}</p>
+            </div>
+          </div>
+        </Reveal>
+      ))}
+      <div className="flex justify-center pt-2">
+        <Link
+          href={cta.href}
+          className="group inline-flex items-center gap-2 rounded-xl bg-[var(--color-ink)] px-6 py-3.5 text-[15px] font-semibold text-white transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/15"
+        >
+          {cta.label}
+          <ArrowUpRight size={16} weight="bold" className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </Link>
+      </div>
+    </div>
   );
 }
 
@@ -37,116 +222,9 @@ export function Services() {
             <p className="mt-4 text-lg text-[var(--color-body)]">{services.sub}</p>
           </div>
         </Reveal>
-
-        <div className="mt-12 grid grid-cols-1 gap-4 lg:grid-cols-3">
-          {/* Large feature cell */}
-          <Reveal className="lg:col-span-2">
-            <div className="relative flex h-full flex-col overflow-hidden rounded-2xl bg-[var(--color-accent-soft)] p-8 ring-1 ring-[var(--color-line)]">
-              <span
-                aria-hidden
-                className="pointer-events-none absolute right-[-30px] top-[-30px] h-40 w-40 opacity-70 [background-image:radial-gradient(var(--color-accent)_1.5px,transparent_1.6px)] [background-size:13px_13px]"
-              />
-              <IconTile>
-                <DeviceMobile size={22} weight="duotone" />
-              </IconTile>
-              <h3 className="mt-6 max-w-[18ch] font-[family-name:var(--font-display)] text-2xl font-bold leading-tight text-[var(--color-ink)]">
-                {s[0].title}
-              </h3>
-              <p className="mt-3 max-w-md text-[15px] leading-relaxed text-[var(--color-body)]">
-                {s[0].desc}
-              </p>
-            </div>
-          </Reveal>
-
-          {/* Dark cell, echoes the ink card in the hero */}
-          <Reveal delay={0.06}>
-            <div className="flex h-full flex-col rounded-2xl bg-[var(--color-ink)] p-7 text-white">
-              <IconTile dark>
-                <Phone size={22} weight="duotone" />
-              </IconTile>
-              <h3 className="mt-6 font-[family-name:var(--font-display)] text-lg font-bold">
-                {s[1].title}
-              </h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-ink-body)]">
-                {s[1].desc}
-              </p>
-            </div>
-          </Reveal>
-
-          {/* Photo cell */}
-          <Reveal delay={0.04}>
-            <div className="relative flex min-h-[240px] flex-col justify-end overflow-hidden rounded-2xl ring-1 ring-[var(--color-line)]">
-              <Image
-                src="https://picsum.photos/seed/buntra-storm-roof/900/700"
-                alt="Storm-damaged roof being inspected"
-                fill
-                sizes="(max-width: 1024px) 100vw, 33vw"
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-ink)]/90 via-[var(--color-ink)]/40 to-transparent" />
-              <div className="relative p-6 text-white">
-                <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--color-accent)]">
-                  <CloudLightning size={16} weight="fill" /> Storm ready
-                </span>
-                <h3 className="mt-2 font-[family-name:var(--font-display)] text-lg font-bold">
-                  {s[2].title}
-                </h3>
-                <p className="mt-1 text-[14px] leading-relaxed text-white/85">{s[2].desc}</p>
-              </div>
-            </div>
-          </Reveal>
-
-          {/* Two standard cells */}
-          <Reveal delay={0.06}>
-            <div className="flex h-full flex-col rounded-2xl bg-white p-7 ring-1 ring-[var(--color-line)]">
-              <IconTile>
-                <MapPin size={22} weight="duotone" />
-              </IconTile>
-              <h3 className="mt-6 font-[family-name:var(--font-display)] text-lg font-bold text-[var(--color-ink)]">
-                {s[3].title}
-              </h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-body)]">{s[3].desc}</p>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.08}>
-            <div className="flex h-full flex-col rounded-2xl bg-white p-7 ring-1 ring-[var(--color-line)]">
-              <IconTile>
-                <MagnifyingGlass size={22} weight="duotone" />
-              </IconTile>
-              <h3 className="mt-6 font-[family-name:var(--font-display)] text-lg font-bold text-[var(--color-ink)]">
-                {s[4].title}
-              </h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-body)]">{s[4].desc}</p>
-            </div>
-          </Reveal>
-
-          {/* Wide reviews band */}
-          <Reveal delay={0.05} className="lg:col-span-3">
-            <div className="flex flex-col items-start justify-between gap-6 rounded-2xl bg-white p-8 ring-1 ring-[var(--color-line)] sm:flex-row sm:items-center">
-              <div className="max-w-xl">
-                <IconTile>
-                  <Star size={22} weight="duotone" />
-                </IconTile>
-                <h3 className="mt-6 font-[family-name:var(--font-display)] text-lg font-bold text-[var(--color-ink)]">
-                  {s[5].title}
-                </h3>
-                <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-body)]">{s[5].desc}</p>
-              </div>
-              <div className="flex shrink-0 flex-col items-start gap-2 sm:items-end">
-                <div className="flex gap-1" aria-hidden>
-                  {Array.from({ length: 5 }, (_, i) => (
-                    <Star key={i} size={26} weight="fill" className="text-[var(--color-accent)]" />
-                  ))}
-                </div>
-                <span className="text-[13px] font-medium text-[var(--color-muted)]">
-                  Your real Google reviews, on your own site
-                </span>
-              </div>
-            </div>
-          </Reveal>
-        </div>
       </Container>
+      <Showcase />
+      <Stacked />
     </Section>
   );
 }

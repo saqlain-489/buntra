@@ -30,42 +30,44 @@ export const hero = {
 };
 
 export const problem = {
-  heading: 'Your next customer is Googling you right now.',
-  body: 'Most people check their phone before they call a roofer. If your site is slow, dated, or clumsy on mobile, they hit back and dial the next name on the list. A weak website hands your jobs to the competition, quietly, every single day.',
-  points: [
-    { stat: '60%', label: 'of roofing searches happen on a phone' },
-    { stat: '7 days', label: 'from start to a site that is live' },
-    { stat: '$0', label: 'due until you approve the design' },
-  ],
+  // heading rendered with an azure underline on `accent`.
+  heading: { pre: 'Every day your site sits broken, ', accent: 'jobs walk.' },
+  sub: 'Most roofing searches happen on a phone. A slow or dated site sends your next job straight to the contractor who looks ready.',
+  // Opposing marquee strips: outcomes lost (top), why it happens (bottom).
+  lossTop: ['missed call', 'lost job', 'back button', 'gone to the competitor'],
+  lossBottom: ['slow', 'not mobile', 'no click-to-call', 'looks dated'],
 };
 
 export const services = {
   heading: 'Everything your site needs to turn a search into a booked job',
   sub: 'Not a brochure that sits there. A site built to ring your phone.',
-  items: [
+  // Scroll-synced phone showcase. `seed` drives a placeholder phone screen (grayscale);
+  // TODO: swap for real mobile-site screenshots from the Work demos.
+  slides: [
     {
       title: 'Mobile-first design',
       desc: 'Sharp and fast on the phone, where most of your customers actually find you. No pinching, no waiting, no bounce.',
+      seed: 'buntra-svc-mobile',
     },
     {
       title: 'Click-to-call and quote form',
       desc: 'One tap to call you, or a short form that drops a lead straight in your inbox.',
+      seed: 'buntra-svc-call',
     },
     {
       title: 'Storm and insurance pages',
       desc: 'Built around the jobs roofers win: storm damage, repairs, and insurance claims.',
+      seed: 'buntra-svc-storm',
     },
     {
-      title: 'Google Business setup',
-      desc: 'We tidy up your profile so you show up on the local map when people search.',
-    },
-    {
-      title: 'Built to be found',
-      desc: 'Clean structure and local pages so you rank for roofing in your city.',
+      title: 'Found on Google',
+      desc: 'A tidy Google profile and clean local pages, so you show up on the map when people search roofing in your city.',
+      seed: 'buntra-svc-search',
     },
     {
       title: 'Reviews front and center',
       desc: 'Your real Google reviews on display, because trust is what closes the call.',
+      seed: 'buntra-svc-reviews',
     },
   ],
 };

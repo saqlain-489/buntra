@@ -2,35 +2,70 @@ import { Container, Section, Heading } from './primitives';
 import { Reveal } from './Reveal';
 import { problem } from '@/lib/content';
 
+const display = 'font-[family-name:var(--font-display)]';
+const edgeMask =
+  '[mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)] [-webkit-mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]';
+
+// CSS-only marquee. The track renders the words enough times to overflow, then a
+// second identical half, so translating -50% loops seamlessly. Alternating words
+// pop in azure; the rest sit as a ghost so the strip frames without shouting.
+function MarqueeRow({
+  items,
+  reverse = false,
+  duration = '32s',
+}: {
+  items: string[];
+  reverse?: boolean;
+  duration?: string;
+}) {
+  const half = Array.from({ length: 4 }).flatMap(() => items);
+  const track = [...half, ...half];
+  return (
+    <div className={`relative flex overflow-hidden ${edgeMask}`} aria-hidden>
+      <div
+        data-marquee
+        className="flex shrink-0 items-center whitespace-nowrap will-change-transform"
+        style={{ animation: `marquee ${duration} linear infinite`, animationDirection: reverse ? 'reverse' : 'normal' }}
+      >
+        {track.map((word, i) => (
+          <span
+            key={i}
+            className={`${display} px-[0.45em] text-[clamp(1.7rem,4.4vw,2.9rem)] font-extrabold leading-none tracking-tight ${
+              i % 2 === 1 ? 'text-[var(--color-accent)]' : 'text-[var(--color-ink)]/[0.12]'
+            }`}
+          >
+            {word}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function Problem() {
   return (
-    <Section id="problem" alt>
-      <Container>
-        <Reveal>
-          <div className="max-w-3xl">
-            <Heading className="text-3xl leading-[1.08] sm:text-4xl md:text-[2.75rem]">
-              Your next customer is <span className="accent-underline">Googling you</span> right now.
-            </Heading>
-            <p className="mt-6 text-lg leading-relaxed text-[var(--color-body)]">{problem.body}</p>
-          </div>
-        </Reveal>
+    <Section id="problem" alt className="overflow-hidden">
+      <div className="flex flex-col gap-12 md:gap-16">
+        <MarqueeRow items={problem.lossTop} duration="36s" />
 
-        <div className="mt-14 grid grid-cols-1 gap-px overflow-hidden rounded-2xl bg-[var(--color-line)] ring-1 ring-[var(--color-line)] sm:grid-cols-3">
-          {problem.points.map((p, i) => (
-            <Reveal key={p.label} delay={i * 0.08} className="bg-white">
-              <div className="h-full px-7 py-9">
-                <span aria-hidden className="block h-1 w-9 rounded-full bg-[var(--color-accent)]" />
-                <div className="mt-5 font-[family-name:var(--font-display)] text-[2.75rem] font-extrabold leading-none tracking-tight text-[var(--color-ink)]">
-                  {p.stat}
-                </div>
-                <p className="mt-3 text-[15px] font-medium leading-snug text-[var(--color-body)]">
-                  {p.label}
-                </p>
-              </div>
+        <Container>
+          <div className="mx-auto max-w-3xl text-center">
+            <Reveal>
+              <Heading className="text-3xl leading-[1.06] tracking-tight sm:text-4xl md:text-[2.9rem]">
+                {problem.heading.pre}
+                <span className="accent-underline">{problem.heading.accent}</span>
+              </Heading>
             </Reveal>
-          ))}
-        </div>
-      </Container>
+            <Reveal delay={0.08}>
+              <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-[var(--color-body)]">
+                {problem.sub}
+              </p>
+            </Reveal>
+          </div>
+        </Container>
+
+        <MarqueeRow items={problem.lossBottom} reverse duration="44s" />
+      </div>
     </Section>
   );
 }
