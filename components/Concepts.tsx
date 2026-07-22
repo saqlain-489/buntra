@@ -2,7 +2,8 @@
 
 import { useRef, useCallback } from 'react';
 import Image from 'next/image';
-import { ArrowsHorizontal } from '@phosphor-icons/react';
+import Link from 'next/link';
+import { ArrowsHorizontal, ArrowUpRight, ArrowRight } from '@phosphor-icons/react';
 import { Container, Section, Heading } from './primitives';
 import { Reveal } from './Reveal';
 import { concepts } from '@/lib/content';
@@ -60,13 +61,13 @@ export function Concepts() {
             onPointerDown={start}
             className="relative mt-12 aspect-[16/10] w-full cursor-ew-resize touch-none select-none overflow-hidden rounded-2xl shadow-xl shadow-stone-900/5 ring-1 ring-[var(--color-line)]"
           >
-            {/* AFTER (base layer). TODO: replace with a real finished-site screenshot. */}
+            {/* AFTER (base layer): a real screenshot of one of our concept builds. */}
             <Image
-              src="https://picsum.photos/seed/buntra-after-modern/1600/1000"
+              src="/work/summit-ridge-desktop.jpeg"
               alt="Modern roofing website concept built by Buntra"
               fill
               sizes="(max-width: 1152px) 100vw, 1152px"
-              className="object-cover"
+              className="object-cover object-top"
             />
             <span className="absolute right-4 top-4 rounded-lg bg-[var(--color-ink)]/85 px-3 py-1 text-xs font-semibold text-white">
               After
@@ -109,16 +110,20 @@ export function Concepts() {
 
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3">
           {concepts.gallery.map((item, i) => (
-            <Reveal key={item.seed} delay={i * 0.08}>
-              <figure className="group">
+            <Reveal key={item.slug} delay={i * 0.08}>
+              <Link href={`/work/${item.slug}`} className="group block">
                 <div className="relative aspect-[4/3] overflow-hidden rounded-2xl ring-1 ring-[var(--color-line)]">
                   <Image
-                    src={`https://picsum.photos/seed/${item.seed}/800/600`}
+                    src={item.img}
                     alt={`${item.title} concept`}
                     fill
                     sizes="(max-width: 640px) 100vw, 33vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                    className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
                   />
+                  <span className="absolute inset-0 bg-[var(--color-ink)]/0 transition-colors duration-300 group-hover:bg-[var(--color-ink)]/10" />
+                  <span className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-white/90 text-[var(--color-ink)] opacity-0 shadow-md transition-all duration-300 group-hover:opacity-100">
+                    <ArrowUpRight size={16} weight="bold" />
+                  </span>
                 </div>
                 <figcaption className="mt-3 flex items-center justify-between gap-3">
                   <span className="font-[family-name:var(--font-display)] text-[15px] font-bold text-[var(--color-ink)]">
@@ -128,10 +133,22 @@ export function Concepts() {
                     {item.tag}
                   </span>
                 </figcaption>
-              </figure>
+              </Link>
             </Reveal>
           ))}
         </div>
+
+        <Reveal delay={0.1}>
+          <div className="mt-10 flex justify-center">
+            <Link
+              href="/work"
+              className="group inline-flex items-center gap-2 rounded-xl px-5 py-3 text-[15px] font-semibold text-[var(--color-ink)] ring-1 ring-[var(--color-line)] transition hover:-translate-y-0.5 hover:ring-[var(--color-accent)] hover:shadow-md"
+            >
+              See all our work
+              <ArrowRight size={16} weight="bold" className="transition-transform group-hover:translate-x-0.5" />
+            </Link>
+          </div>
+        </Reveal>
       </Container>
     </Section>
   );

@@ -161,9 +161,11 @@ answer objections, then make the emotional close and present the form.
 - **Analysis vs action:** if asked to "check / analyze / can we / why" → investigate and report only.
   Build/edit only when told to ("do it", "go", "build", "fix it"). (Inherited from global config.)
 - **Ask before deleting** files or other state-changing side actions beyond what was requested.
-- **Verify in the real browser, not just a build.** Use the chrome-devtools tools to load the page,
-  screenshot, and drive the affected flow. React hover/enter state only reacts to a *real* cursor
-  (the `hover` tool), not synthetic dispatched events. End with a `Verified:` / `Not verified:` line.
+- **Chrome / browser MCP is OFF by default.** NEVER use the chrome-devtools / browser MCP tools
+  (navigate, screenshot, resize, evaluate, hover, etc.) unless the user explicitly asks in that prompt
+  ("open chrome", "check in the browser", "screenshot it"). By default, verify with `npm run build` /
+  typecheck / reading the code, and end with a `Verified:` / `Not verified:` line. Only when the user
+  opts into Chrome: React hover/enter state reacts to a *real* cursor (the `hover` tool), not synthetic events.
 - **Responsive is mandatory (never ship desktop-only).** Every redesign or new build MUST be checked
   at phone (~390px), tablet (~800px), and desktop widths before it is called done. Rules:
   - No horizontal overflow, no overlapping elements, tap targets ≥ 44px, primary CTA reachable.
@@ -171,5 +173,6 @@ answer objections, then make the emotional close and present the form.
     desktop-only visual (like the hero 3D showcase) can't fit, give mobile a tasteful equivalent, not nothing.
   - Scope desktop-only tricks (align-self, translate, multi-column grids) behind breakpoints (`lg:` etc.)
     so they don't distort the stacked mobile layout. Nav: full links/CTA appear at `lg`, hamburger below.
-  - Actually resize the browser (resize_page) to 390 / 800 / 1280 and screenshot each before finishing.
+  - Design and reason for phone / tablet / desktop by reading the breakpoint classes. Only when the user
+    has opted into Chrome that prompt, resize to 390 / 800 / 1280 and screenshot each to confirm.
 - Keep responses concise; explain key decisions, don't narrate obvious ones.

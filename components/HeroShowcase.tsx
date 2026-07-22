@@ -12,13 +12,12 @@ function Card({ p }: { p: Project }) {
   return (
     <div className="group/card overflow-hidden rounded-2xl bg-white ring-1 ring-[var(--color-line)] shadow-sm transition duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-900/10 hover:ring-[var(--color-accent)]/30">
       <div className="relative aspect-[4/3] overflow-hidden">
-        {/* TODO: replace with real finished-site screenshots */}
         <Image
-          src={`https://picsum.photos/seed/${p.seed}/640/480`}
+          src={p.img}
           alt={`${p.name} website`}
           fill
           sizes="320px"
-          className="object-cover transition duration-700 ease-out group-hover/card:scale-[1.06]"
+          className="object-cover object-top transition duration-700 ease-out group-hover/card:scale-[1.06]"
         />
       </div>
       <div className="flex items-center justify-between gap-2 px-4 py-3">
@@ -81,12 +80,12 @@ export function HeroShowcase() {
     >
       <div ref={colA} className={colStyle}>
         {listA.map((p, i) => (
-          <Card key={`a-${p.seed}-${i}`} p={p} />
+          <Card key={`a-${p.img}-${i}`} p={p} />
         ))}
       </div>
       <div ref={colB} className={`${colStyle} mt-[-60px]`}>
         {listBFull.map((p, i) => (
-          <Card key={`b-${p.seed}-${i}`} p={p} />
+          <Card key={`b-${p.img}-${i}`} p={p} />
         ))}
       </div>
     </div>

@@ -38,38 +38,50 @@ export const problem = {
   lossBottom: ['slow', 'not mobile', 'no click-to-call', 'looks dated'],
 };
 
+// A slide is one image, except the redesign slide, which shows a before/after pair.
+export type ServiceSlide = {
+  title: string;
+  desc: string;
+  image: string;
+  before?: string;
+  after?: string;
+};
+
 export const services = {
-  heading: 'Everything your site needs to turn a search into a booked job',
-  sub: 'Not a brochure that sits there. A site built to ring your phone.',
-  // Scroll-synced phone showcase. `seed` drives a placeholder phone screen (grayscale);
-  // TODO: swap for real mobile-site screenshots from the Work demos.
+  heading: 'Everything your roofing business needs to get found, earn trust, and book more jobs.',
+  sub: "From websites and local SEO to AI automation, we build everything your roofing business needs to attract more customers. Review it first, then pay only if you're happy",
+  // Scroll-synced showcase. `image` is a landscape (16:10) result image per service.
+  // AI automation + AI receptionist still use interim /work shots pending real images.
   slides: [
     {
-      title: 'Mobile-first design',
-      desc: 'Sharp and fast on the phone, where most of your customers actually find you. No pinching, no waiting, no bounce.',
-      seed: 'buntra-svc-mobile',
+      title: 'Custom roofing website.',
+      desc: 'A fast, mobile-first site built from scratch, so roofers with no real website stop losing jobs to the competitor who shows up online when they do not.',
+      image: '/website.jpeg',
     },
     {
-      title: 'Click-to-call and quote form',
-      desc: 'One tap to call you, or a short form that drops a lead straight in your inbox.',
-      seed: 'buntra-svc-call',
+      title: 'Website redesign',
+      desc: 'We rebuild a dated, slow site into one that turns the visitors you already get into booked jobs, instead of sending them straight to the back button.',
+      image: '/after-site.jpeg',
+      // before/after pair. `before` renders desaturated.
+      before: '/before-site.png',
+      after: '/after-site.jpeg',
     },
     {
-      title: 'Storm and insurance pages',
-      desc: 'Built around the jobs roofers win: storm damage, repairs, and insurance claims.',
-      seed: 'buntra-svc-storm',
+      title: 'AI business automation',
+      desc: 'Automated follow-ups, quotes, and reminders that chase every lead for you, so a busy week on the roof never turns into a job that quietly slips away.',
+      image: '/work/ironclad-desktop.jpeg',
     },
     {
-      title: 'Found on Google',
-      desc: 'A tidy Google profile and clean local pages, so you show up on the map when people search roofing in your city.',
-      seed: 'buntra-svc-search',
+      title: 'AI receptionist',
+      desc: 'An AI receptionist answers every call at night, on weekends, and when your hands are full, so no homeowner hits voicemail and dials the next roofer instead.',
+      image: '/work/bayou-city-desktop.jpeg',
     },
     {
-      title: 'Reviews front and center',
-      desc: 'Your real Google reviews on display, because trust is what closes the call.',
-      seed: 'buntra-svc-reviews',
+      title: 'Complete local SEO',
+      desc: 'Full local SEO so your business shows up first when someone in your town searches for a roofer, right at the moment they are ready to call.',
+      image: '/googlesearch.jpeg',
     },
-  ],
+  ] as ServiceSlide[],
 };
 
 // Honest framing: these are concept builds, not shipped client sites yet.
@@ -78,10 +90,11 @@ export const concepts = {
   sub: 'Drag to see what a modern site does for a contractor. This is the free mockup you get, built from your real business, before you pay anything.',
   honesty:
     'These are concept builds and redesign mockups, the exact kind of work we deliver. As client sites ship, real ones take their place here.',
+  // Each links to its full live demo at /work/<slug>. `img` is a real screenshot.
   gallery: [
-    { title: 'Storm response landing', tag: 'Concept', seed: 'buntra-storm-response' },
-    { title: 'Metal roofing rebuild', tag: 'Concept', seed: 'buntra-metal-rebuild' },
-    { title: 'Insurance claim funnel', tag: 'Concept', seed: 'buntra-insurance-funnel' },
+    { title: 'Storm response landing', tag: 'Concept', slug: 'bayou-city', img: '/work/bayou-city-desktop.jpeg' },
+    { title: 'Metal roofing rebuild', tag: 'Concept', slug: 'ironclad', img: '/work/ironclad-desktop.jpeg' },
+    { title: 'Insurance claim funnel', tag: 'Concept', slug: 'gulf-coast', img: '/work/gulf-coast-desktop.jpeg' },
   ],
 };
 

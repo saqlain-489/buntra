@@ -1,13 +1,11 @@
-// Showcase items for the hero carousel. Placeholder imagery + representative
-// project names. TODO: replace seeds with real finished-site screenshots and use
-// real client names once the first builds ship.
-export type Project = { name: string; tag: string; seed: string };
+// Showcase items for the hero orbit. Each is a real screenshot of a live demo
+// site at /work/<slug>.
+export type Project = { name: string; tag: string; img: string };
 
 export const showcase: Project[] = [
-  { name: 'Summit Ridge Roofing', tag: 'Full redesign', seed: 'buntra-proj-summit' },
-  { name: 'Bayou City Exteriors', tag: 'New build', seed: 'buntra-proj-bayou' },
-  { name: 'Ironclad Roof Co.', tag: 'Redesign + SEO', seed: 'buntra-proj-ironclad' },
-  { name: 'Lone Star Roofworks', tag: 'New build', seed: 'buntra-proj-lonestar' },
-  { name: 'Anvil Metal Roofing', tag: 'Full redesign', seed: 'buntra-proj-anvil' },
-  { name: 'Gulf Coast Storm Pros', tag: 'New build', seed: 'buntra-proj-gulf' },
+  { name: 'Summit Ridge Roofing', tag: 'Full redesign', img: '/work/summit-ridge-desktop.jpeg' },
+  { name: 'Bayou City Exteriors', tag: 'New build', img: '/work/bayou-city-desktop.jpeg' },
+  { name: 'Ironclad Roof Co.', tag: 'Redesign + SEO', img: '/work/ironclad-desktop.jpeg' },
+  { name: 'Lone Star Roofworks', tag: 'New build', img: '/work/lone-star-desktop.jpeg' },
+  { name: 'Gulf Coast Storm Pros', tag: 'New build', img: '/work/gulf-coast-desktop.jpeg' },
 ];

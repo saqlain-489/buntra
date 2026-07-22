@@ -1,9 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowUpRight } from '@phosphor-icons/react';
+import { ArrowUpRight, ArrowRight } from '@phosphor-icons/react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -15,24 +14,61 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const display = 'font-[family-name:var(--font-display)]';
 const slides = services.slides;
-const screen = (seed: string) => `https://picsum.photos/seed/${seed}/620/1280?grayscale`;
 const num = (i: number) => String(i + 1).padStart(2, '0');
 
-function Phone({ seed, keyed, className = '' }: { seed: string; keyed?: number; className?: string }) {
+// macOS-style browser chrome: light bar with red/yellow/green traffic lights.
+function BrowserBar({ compact = false }: { compact?: boolean }) {
+  const bar = compact ? 'h-7 gap-1.5 px-3' : 'h-9 gap-2 px-4 sm:h-10';
+  const dot = compact ? 'h-2 w-2' : 'h-2.5 w-2.5 sm:h-3 sm:w-3';
   return (
-    <div className={`relative aspect-[300/620] rounded-[2.6rem] bg-[var(--color-ink)] p-2.5 shadow-[0_40px_90px_rgba(16,22,29,0.28)] ${className}`}>
-      <div className="relative h-full w-full overflow-hidden rounded-[2.05rem] bg-[var(--color-surface-alt)]">
-        <span className="absolute left-1/2 top-2.5 z-10 h-5 w-24 -translate-x-1/2 rounded-full bg-[var(--color-ink)]" />
-        <Image
-          key={keyed}
-          src={screen(seed)}
-          alt=""
-          fill
-          sizes="300px"
-          data-svcfade
-          className="object-cover [animation:svcFade_.5s_ease_both]"
-        />
-      </div>
+    <div className={`flex items-center border-b border-[var(--color-line)] bg-[var(--color-surface)] ${bar}`}>
+      <span className={`${dot} rounded-full bg-[#ff5f57]`} />
+      <span className={`${dot} rounded-full bg-[#febc2e]`} />
+      <span className={`${dot} rounded-full bg-[#28c840]`} />
+    </div>
+  );
+}
+
+function Shot({ src, keyed, className = '' }: { src: string; keyed?: number; className?: string }) {
+  return (
+    <div className={`overflow-hidden rounded-2xl bg-[var(--color-surface-alt)] shadow-[0_40px_90px_rgba(16,22,29,0.2)] ring-1 ring-[var(--color-line)] ${className}`}>
+      <BrowserBar />
+      {/* full image, natural aspect, original file (no crop, no recompression) */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img key={keyed} src={src} alt="" data-svcfade className="block h-auto w-full [animation:svcFade_.5s_ease_both]" />
+    </div>
+  );
+}
+
+// Before/after: dated site (small, desaturated) → azure arrow → modern site (larger).
+// Arrow + labels are drawn here so they stay crisp regardless of the source images.
+function Compare({ before, after, keyed }: { before: string; after: string; keyed?: number }) {
+  return (
+    <div key={keyed} data-svcfade className="flex items-center gap-2 [animation:svcFade_.5s_ease_both] sm:gap-4">
+      <figure className="relative w-[26%] shrink-0">
+        <span className="absolute left-2 top-2 z-10 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-[var(--color-muted)] shadow-sm">
+          Before
+        </span>
+        <div className="overflow-hidden rounded-xl bg-[var(--color-surface-alt)] opacity-90 shadow-md ring-1 ring-[var(--color-line)] grayscale">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={before} alt="Dated website before redesign" className="block h-auto w-full" />
+        </div>
+      </figure>
+
+      <span className="shrink-0 text-[var(--color-accent)]">
+        <ArrowRight size={30} weight="bold" />
+      </span>
+
+      <figure className="relative flex-1">
+        <span className="absolute bottom-2 left-2 z-10 rounded-full bg-[var(--color-accent)] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white shadow-sm">
+          After
+        </span>
+        <div className="overflow-hidden rounded-2xl bg-[var(--color-surface-alt)] shadow-[0_30px_70px_rgba(16,22,29,0.22)] ring-1 ring-[var(--color-line)]">
+          <BrowserBar compact />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={after} alt="Modern website after redesign" className="block h-auto w-full" />
+        </div>
+      </figure>
     </div>
   );
 }
@@ -40,7 +76,7 @@ function Phone({ seed, keyed, className = '' }: { seed: string; keyed?: number; 
 // Desktop: sticky phone, scroll drives the active slide, staggered text + giant number.
 function Showcase() {
   const track = useRef<HTMLDivElement>(null);
-  const phone = useRef<HTMLDivElement>(null);
+  const panel = useRef<HTMLDivElement>(null);
   const idxRef = useRef(0);
   const reduce = useRef(false);
   const [active, setActive] = useState(0);
@@ -70,14 +106,14 @@ function Showcase() {
 
   // 3D tilt tied to cursor (no re-render; writes transform directly).
   const onMove = (e: React.PointerEvent) => {
-    if (reduce.current || !phone.current) return;
+    if (reduce.current || !panel.current) return;
     const r = e.currentTarget.getBoundingClientRect();
     const px = (e.clientX - r.left) / r.width - 0.5;
     const py = (e.clientY - r.top) / r.height - 0.5;
-    phone.current.style.transform = `perspective(1000px) rotateY(${px * 10}deg) rotateX(${-py * 8}deg)`;
+    panel.current.style.transform = `perspective(1200px) rotateY(${px * 6}deg) rotateX(${-py * 5}deg)`;
   };
   const onLeave = () => {
-    if (phone.current) phone.current.style.transform = 'perspective(1000px) rotateY(0) rotateX(0)';
+    if (panel.current) panel.current.style.transform = 'perspective(1200px) rotateY(0) rotateX(0)';
   };
 
   const goTo = (i: number) => {
@@ -89,6 +125,9 @@ function Showcase() {
   };
 
   const slide = slides[active];
+  // The before/after slide needs more room than a single screenshot, so it gets a
+  // wider preview and a slight left nudge; single-image slides keep their size.
+  const isCompare = Boolean(slide.before && slide.after);
 
   return (
     <div ref={track} className="relative hidden lg:block" style={{ height: `${slides.length * 80}vh` }}>
@@ -107,19 +146,25 @@ function Showcase() {
           key={`n${active}`}
           aria-hidden
           data-svcfade
-          className={`${display} pointer-events-none absolute bottom-[-5vh] right-[1vw] text-[23vw] font-extrabold leading-none tracking-tight text-[var(--color-ink)]/[0.045] [animation:svcFade_.5s_ease_both]`}
+          className={`${display} pointer-events-none absolute bottom-[-5vh] right-[1vw] text-[18.4vw] font-extrabold leading-none tracking-tight text-[var(--color-ink)]/[0.045] [animation:svcFade_.5s_ease_both]`}
         >
           {num(active)}
         </span>
 
-        <Container className="relative">
-          <div className="grid grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] items-center gap-16">
-            <div className="flex justify-center [perspective:1000px]">
+        <div className="relative mx-auto w-full max-w-[1340px] px-6 sm:px-10">
+          <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] items-center gap-10 xl:gap-14">
+            <div className="[perspective:1200px]">
               <div
-                ref={phone}
-                className="aspect-[300/620] h-[min(520px,64vh)] transition-transform duration-300 ease-out will-change-transform"
+                ref={panel}
+                className={`w-full transition-transform duration-300 ease-out will-change-transform ${
+                  isCompare ? 'max-w-[680px] lg:-ml-6' : 'max-w-[580px]'
+                }`}
               >
-                <Phone seed={slide.seed} keyed={active} className="h-full w-full" />
+                {isCompare ? (
+                  <Compare before={slide.before!} after={slide.after!} keyed={active} />
+                ) : (
+                  <Shot src={slide.image} keyed={active} />
+                )}
               </div>
             </div>
 
@@ -154,7 +199,7 @@ function Showcase() {
             </div>
           </div>
 
-        </Container>
+        </div>
 
         {/* pagination dots */}
         <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 items-center gap-2.5">
@@ -180,15 +225,13 @@ function Stacked() {
     <div className="mt-12 space-y-16 lg:hidden">
       {slides.map((s, i) => (
         <Reveal key={s.title}>
-          <div className="grid gap-7 sm:grid-cols-2 sm:items-center sm:gap-10">
-            <div className="relative flex justify-center">
-              <span
-                aria-hidden
-                className="pointer-events-none absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,var(--color-accent),transparent_62%)] opacity-[0.12] blur-3xl"
-              />
-              <Phone seed={s.seed} className="relative w-[230px]" />
-            </div>
-            <div>
+          <div>
+            {s.before && s.after ? (
+              <Compare before={s.before} after={s.after} />
+            ) : (
+              <Shot src={s.image} />
+            )}
+            <div className="mt-6">
               <span className="mb-4 block h-1 w-10 rounded-full bg-[var(--color-accent)]" />
               <span className={`${display} text-sm font-bold text-[var(--color-accent-strong)]`}>{num(i)}</span>
               <h3 className={`${display} mt-2 text-3xl font-bold leading-[1.08] tracking-tight text-[var(--color-ink)]`}>
