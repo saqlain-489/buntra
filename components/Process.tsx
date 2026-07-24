@@ -1,12 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
 import { Container, Section } from './primitives';
 import { Reveal } from './Reveal';
+import { ProcessArt } from './ProcessArt';
 import { process } from '@/lib/content';
 
 const display = 'font-[family-name:var(--font-display)]';
+// Per-step custom illustration (recolored Storyset SVG). null = use ProcessArt.
+const customArt: (string | null)[] = ['/process/see-it-first.svg', '/process/you-approve.svg', '/process/go-live.svg'];
 
 export function Process() {
   // First panel open by default. Hovering (or focusing) another opens it and
@@ -16,7 +18,7 @@ export function Process() {
   return (
     <Section id="process">
       <Container>
-        {/* Header: small label left, headline + sub right (matches the reference) */}
+        {/* Header: small label left, headline + sub right */}
         <Reveal>
           <div className="grid gap-6 md:grid-cols-[0.7fr_1.3fr] md:items-start md:gap-12">
             <span className="inline-flex items-center gap-2.5 text-sm font-semibold text-[var(--color-ink)]">
@@ -50,62 +52,42 @@ export function Process() {
                   tabIndex={0}
                   aria-label={`Step ${i + 1}: ${step.title}`}
                   style={{ flexGrow: isActive ? 2.4 : 1 }}
-                  className="group flex min-h-[280px] flex-col outline-none transition-[flex-grow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:min-h-0 md:basis-0"
+                  className="group flex min-h-[320px] flex-col outline-none transition-[flex-grow] duration-[750ms] ease-[cubic-bezier(0.22,1,0.36,1)] md:min-h-0 md:basis-0"
                 >
-                  <div className="relative flex-1 overflow-hidden rounded-[22px] bg-white ring-1 ring-[var(--color-line)]">
-                    {/* Photo layer: always shown on mobile, only on the active panel at md+ */}
-                    <div
-                      className={`absolute inset-0 opacity-100 transition-opacity duration-500 ${
-                        isActive ? 'md:opacity-100' : 'md:opacity-0'
-                      }`}
-                    >
-                      <Image
-                        src={`https://picsum.photos/seed/${step.seed}/1100/950`}
-                        alt=""
-                        fill
-                        sizes="(max-width: 768px) 100vw, 55vw"
-                        className="object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-ink)]/90 via-[var(--color-ink)]/30 to-transparent" />
+                  <div
+                    className={`relative flex h-full flex-col overflow-hidden rounded-[22px] bg-gradient-to-tr from-[var(--color-surface)] via-white to-[var(--color-accent-soft)] ring-1 transition-all duration-500 ${
+                      isActive
+                        ? 'shadow-[0_24px_60px_rgba(2,132,199,0.10)] ring-[var(--color-accent)]/40'
+                        : 'ring-[var(--color-line)]'
+                    }`}
+                  >
+                    {/* Illustration */}
+                    <div className="flex flex-1 items-center justify-center px-6 pt-8">
+                      {customArt[i] ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={customArt[i]!} alt="" className="max-h-[210px] w-auto max-w-full object-contain" />
+                      ) : (
+                        <ProcessArt step={i} className="max-h-[196px] max-w-[300px]" />
+                      )}
                     </div>
 
-                    {/* Giant number watermark */}
-                    <span
-                      aria-hidden
-                      className={`${display} pointer-events-none absolute bottom-1 right-5 z-10 text-[5.5rem] font-extrabold leading-none tracking-[-0.04em] transition-colors duration-500 sm:text-[7rem] ${
-                        isActive
-                          ? 'text-[var(--color-accent)]'
-                          : 'text-[var(--color-accent)] md:text-[#dde3ea]'
-                      }`}
-                    >
-                      .0{i + 1}
-                    </span>
-
-                    {/* Text: bottom on mobile + active, top on collapsed panels */}
-                    <div
-                      className={`relative z-20 flex h-full flex-col justify-end p-6 ${
-                        isActive ? 'md:justify-end' : 'md:justify-start'
-                      }`}
-                    >
-                      <p
-                        className={`text-[11px] font-semibold uppercase tracking-[0.16em] transition-colors duration-500 ${
-                          isActive
-                            ? 'text-white/70 md:text-white/70'
-                            : 'text-white/70 md:text-[var(--color-muted)]'
-                        }`}
-                      >
-                        {step.kicker}
-                      </p>
-                      <h3
-                        className={`${display} mt-2 max-w-[16ch] text-2xl font-bold leading-[1.05] tracking-tight transition-colors duration-500 ${
-                          isActive ? 'text-white md:text-white' : 'text-white md:text-[var(--color-ink)]'
-                        }`}
-                      >
+                    {/* Text */}
+                    <div className="p-6">
+                      <div className="flex items-center gap-2.5">
+                        <span className={`${display} grid h-6 w-6 place-items-center rounded-full bg-[var(--color-accent-soft)] text-[12px] font-bold text-[var(--color-accent-strong)]`}>
+                          {i + 1}
+                        </span>
+                        <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--color-muted)]">
+                          {step.kicker}
+                        </span>
+                      </div>
+                      <h3 className={`${display} mt-3 max-w-[16ch] text-2xl font-bold leading-[1.05] tracking-tight text-[var(--color-ink)]`}>
                         {step.title}
                       </h3>
+                      {/* Desc fades + expands smoothly instead of popping */}
                       <p
-                        className={`mt-3 max-w-[34ch] text-[15px] leading-relaxed text-white/85 ${
-                          isActive ? 'md:block' : 'md:hidden'
+                        className={`mt-2 max-h-40 max-w-[34ch] overflow-hidden text-[15px] leading-relaxed text-[var(--color-body)] opacity-100 transition-all duration-[600ms] ease-out ${
+                          isActive ? 'md:mt-2 md:max-h-40 md:opacity-100' : 'md:mt-0 md:max-h-0 md:opacity-0'
                         }`}
                       >
                         {step.desc}
@@ -115,8 +97,8 @@ export function Process() {
 
                   {/* Progress line (desktop) */}
                   <div
-                    className={`mt-4 hidden rounded-full transition-all duration-500 md:block ${
-                      isActive ? 'h-[3px] bg-[var(--color-ink)]' : 'h-[2px] bg-[var(--color-line)]'
+                    className={`mt-4 hidden rounded-full transition-all duration-[750ms] md:block ${
+                      isActive ? 'h-[3px] bg-[var(--color-accent)]' : 'h-[2px] bg-[var(--color-line)]'
                     }`}
                   />
                 </div>

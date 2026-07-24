@@ -50,8 +50,7 @@ export type ServiceSlide = {
 export const services = {
   heading: 'Everything your roofing business needs to get found, earn trust, and book more jobs.',
   sub: "From websites and local SEO to AI automation, we build everything your roofing business needs to attract more customers. Review it first, then pay only if you're happy",
-  // Scroll-synced showcase. `image` is a landscape (16:10) result image per service.
-  // AI automation + AI receptionist still use interim /work shots pending real images.
+  // Scroll-synced showcase. `image` is a landscape result screenshot per service.
   slides: [
     {
       title: 'Custom roofing website.',
@@ -69,12 +68,12 @@ export const services = {
     {
       title: 'AI business automation',
       desc: 'Automated follow-ups, quotes, and reminders that chase every lead for you, so a busy week on the roof never turns into a job that quietly slips away.',
-      image: '/work/ironclad-desktop.jpeg',
+      image: '/ai-automation.jpg',
     },
     {
       title: 'AI receptionist',
       desc: 'An AI receptionist answers every call at night, on weekends, and when your hands are full, so no homeowner hits voicemail and dials the next roofer instead.',
-      image: '/work/bayou-city-desktop.jpeg',
+      image: '/ai-receptionist.png',
     },
     {
       title: 'Complete local SEO',
@@ -84,18 +83,13 @@ export const services = {
   ] as ServiceSlide[],
 };
 
-// Honest framing: these are concept builds, not shipped client sites yet.
+// Portfolio of the live demo sites (pulled from lib/demos.ts so names/personas
+// stay in sync with the /work page). Honestly framed as concept builds.
 export const concepts = {
-  heading: 'Same roofer. A site that actually books jobs.',
-  sub: 'Drag to see what a modern site does for a contractor. This is the free mockup you get, built from your real business, before you pay anything.',
+  heading: 'Roofing sites we design and build',
+  sub: 'Not mockups in a slideshow. Each of these is a full, live website you can click through and explore, built exactly the way we would build yours.',
   honesty:
-    'These are concept builds and redesign mockups, the exact kind of work we deliver. As client sites ship, real ones take their place here.',
-  // Each links to its full live demo at /work/<slug>. `img` is a real screenshot.
-  gallery: [
-    { title: 'Storm response landing', tag: 'Concept', slug: 'bayou-city', img: '/work/bayou-city-desktop.jpeg' },
-    { title: 'Metal roofing rebuild', tag: 'Concept', slug: 'ironclad', img: '/work/ironclad-desktop.jpeg' },
-    { title: 'Insurance claim funnel', tag: 'Concept', slug: 'gulf-coast', img: '/work/gulf-coast-desktop.jpeg' },
-  ],
+    'These are concept builds, the exact kind of site we deliver.',
 };
 
 export const differentiators = {

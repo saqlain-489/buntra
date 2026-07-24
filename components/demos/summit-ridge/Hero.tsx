@@ -1,84 +1,97 @@
-import Image from 'next/image';
-import { ShieldCheck, Star } from '@phosphor-icons/react/dist/ssr';
-import { DContainer, DButton, DEyebrow } from '../kit/primitives';
-import { Reveal } from '../kit/Reveal';
-import { Parallax } from '../kit/Parallax';
-import { hero, brand } from './content';
+'use client';
 
-const display = 'font-[family-name:var(--d-font-display)]';
+import { useRef } from 'react';
+import Link from 'next/link';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+import { CaretDown } from '@phosphor-icons/react';
+import { hero } from './content';
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+const pillPrimary =
+  'inline-flex items-center justify-center rounded-full bg-white px-7 py-3.5 text-sm font-bold text-[#0c1128] shadow-[0_0_20px_rgba(255,255,255,0.2)] transition-transform duration-200 hover:scale-105 active:scale-95';
+const pillGhost =
+  'inline-flex items-center justify-center rounded-full border border-white/20 px-7 py-3.5 text-sm font-bold text-white transition duration-200 hover:scale-105 hover:bg-white/10 active:scale-95';
 
 export function Hero() {
-  return (
-    <section id="top" className="relative overflow-hidden bg-[var(--d-bg)]">
-      {/* soft slate wash so the hero reads even before a real photo */}
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_80%_at_85%_-10%,var(--d-accent-soft),transparent_55%)]"
-      />
-      <DContainer className="relative">
-        <div className="grid items-center gap-12 py-16 md:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
-          <div>
-            <Reveal>
-              <DEyebrow>{hero.eyebrow}</DEyebrow>
-            </Reveal>
-            <h1 className={`${display} mt-5 text-[clamp(2.6rem,5.2vw,4.4rem)] font-bold leading-[1.02] tracking-[-0.02em] text-[color:var(--d-ink)]`}>
-              <Reveal delay={0.05}><span className="block">{hero.headline[0]}</span></Reveal>
-              <Reveal delay={0.14}>
-                <span className="block">
-                  {hero.headline[1].replace(' again.', ' ')}
-                  <span className="italic text-[color:var(--d-accent)]">again.</span>
-                </span>
-              </Reveal>
-            </h1>
-            <Reveal delay={0.22}>
-              <p className="mt-6 max-w-xl text-lg leading-relaxed text-[color:var(--d-body)]">{hero.sub}</p>
-            </Reveal>
-            <Reveal delay={0.3}>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <DButton href={hero.primary.href}>{hero.primary.label}</DButton>
-                <DButton href={hero.secondary.href} variant="outline">{hero.secondary.label}</DButton>
-              </div>
-            </Reveal>
-            <Reveal delay={0.38}>
-              <div className="mt-7 flex items-center gap-2 text-sm text-[color:var(--d-body)]">
-                <span className="flex gap-0.5 text-[color:var(--d-accent)]">
-                  {Array.from({ length: 5 }, (_, i) => (
-                    <Star key={i} size={16} weight="fill" />
-                  ))}
-                </span>
-                4.9 from Front Range homeowners
-              </div>
-            </Reveal>
-          </div>
+  const outer = useRef<HTMLElement>(null);
+  const reveal = useRef<HTMLDivElement>(null);
+  const revealImg = useRef<HTMLImageElement>(null);
+  const caret = useRef<HTMLDivElement>(null);
 
-          <Reveal delay={0.15} className="relative">
-            <div className="relative overflow-hidden rounded-[var(--d-radius-lg)] ring-1 ring-[var(--d-line)] shadow-[0_30px_70px_rgba(33,42,51,0.16)]">
-              <Parallax amount={10}>
-                <div className="relative aspect-[4/5] w-full">
-                  <Image
-                    src={`https://picsum.photos/seed/${hero.heroSeed}/1000/1250`}
-                    alt="A finished Summit Ridge roof"
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 45vw"
-                    className="scale-110 object-cover"
-                    priority
-                  />
-                </div>
-              </Parallax>
-            </div>
-            {/* floating warranty card */}
-            <div className="absolute -bottom-5 -left-5 flex items-center gap-3 rounded-[var(--d-radius-lg)] bg-[var(--d-surface)] px-5 py-4 shadow-[0_20px_50px_rgba(33,42,51,0.16)] ring-1 ring-[var(--d-line)]">
-              <span className="grid h-11 w-11 place-items-center rounded-full bg-[var(--d-accent-soft)] text-[color:var(--d-accent)]">
-                <ShieldCheck size={24} weight="duotone" />
-              </span>
-              <span className="leading-tight">
-                <span className={`${display} block text-xl font-bold text-[color:var(--d-ink)]`}>{hero.badge.top}</span>
-                <span className="text-xs font-medium text-[color:var(--d-muted)]">{hero.badge.bottom}</span>
-              </span>
-            </div>
-          </Reveal>
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        // Layer B ships unclipped (good static fallback); the mask is applied only when scrubbing is on.
+        gsap.set(reveal.current, { clipPath: 'circle(0% at 50% 50%)' });
+        const tl = gsap.timeline({
+          scrollTrigger: { trigger: outer.current, start: 'top top', end: 'bottom bottom', scrub: true },
+        });
+        tl.to(reveal.current, { clipPath: 'circle(150% at 50% 50%)', ease: 'none', duration: 1 }, 0)
+          .fromTo(revealImg.current, { scale: 1 }, { scale: 1.15, ease: 'none', duration: 1 }, 0)
+          .to(caret.current, { autoAlpha: 0, duration: 0.2 }, 0);
+      });
+      mm.add('(prefers-reduced-motion: reduce)', () => {
+        // No pin, no scrub: collapse the tall track and show the revealed layer statically.
+        gsap.set(outer.current, { height: 'auto' });
+        gsap.set(caret.current, { display: 'none' });
+      });
+      return () => mm.revert();
+    },
+    { scope: outer }
+  );
+
+  return (
+    <section id="top" ref={outer} className="relative h-[220vh] md:h-[300vh]">
+      <div className="sticky top-0 h-svh overflow-hidden">
+        {/* Layer A: the sketch */}
+        <div className="absolute inset-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={hero.outline.img} alt="" className="h-full w-full object-cover opacity-40 grayscale" />
+          <div className="absolute inset-0 bg-[#0c1128]/75" />
+          <div className="absolute inset-0 flex items-center justify-center px-4 pt-20 sm:px-6">
+            <h1 className="max-w-4xl text-center text-4xl font-black leading-[1.1] tracking-tighter text-white sm:text-6xl md:text-7xl">
+              {hero.outline.headline}
+            </h1>
+          </div>
+          <div ref={caret} className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/70">
+            <CaretDown size={28} className="animate-bounce motion-reduce:animate-none" />
+          </div>
         </div>
-      </DContainer>
+
+        {/* Layer B: the reality, revealed by a scroll-driven circle mask */}
+        <div ref={reveal} className="absolute inset-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            ref={revealImg}
+            src={hero.reveal.img}
+            alt="A neighborhood of finished rooftops at dusk"
+            className="h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0c1128] via-[#0c1128]/55 to-[#0c1128]/35" />
+          <div className="absolute inset-0 flex items-center justify-center px-4 pt-20 sm:px-6">
+            <div className="max-w-3xl text-center">
+              <h2 className="text-4xl font-black leading-[1.1] tracking-tighter text-white sm:text-6xl md:text-7xl">
+                {hero.reveal.headline}
+              </h2>
+              <p className="mx-auto mt-5 max-w-xl text-base font-light leading-relaxed text-[color:var(--d-body)] sm:text-lg">
+                {hero.reveal.sub}
+              </p>
+              <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                <Link href={hero.reveal.primary.href} className={pillPrimary}>
+                  {hero.reveal.primary.label}
+                </Link>
+                <Link href={hero.reveal.secondary.href} className={pillGhost}>
+                  {hero.reveal.secondary.label}
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

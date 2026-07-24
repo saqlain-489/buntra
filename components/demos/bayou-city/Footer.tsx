@@ -1,41 +1,57 @@
 import Link from 'next/link';
-import { DContainer } from '../kit/primitives';
-import { brand, footer } from './content';
+import { Hexagon, XLogo, InstagramLogo, FacebookLogo, LinkedinLogo } from '@phosphor-icons/react/dist/ssr';
+import { Container, display } from './ui';
+import { brand, nav, footer } from './content';
 
-const display = 'font-[family-name:var(--d-font-display)]';
+const socials = [
+  { label: 'X', Icon: XLogo },
+  { label: 'Instagram', Icon: InstagramLogo },
+  { label: 'Facebook', Icon: FacebookLogo },
+  { label: 'LinkedIn', Icon: LinkedinLogo },
+];
 
 export function Footer() {
   return (
-    <footer className="bg-[var(--d-primary)] text-white">
-      <DContainer>
-        <div className="grid gap-10 py-16 md:grid-cols-[1.6fr_1fr_1fr]">
+    <footer className="border-t border-[var(--d-line)] bg-white">
+      <Container>
+        <div className="flex flex-col gap-6 py-12 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <div className={`${display} text-2xl font-bold uppercase`}>
-              {brand.name}<span className="text-[color:var(--d-accent-2)]">.</span>
+            <div className={`${display} inline-flex items-center gap-2 text-xl font-bold tracking-tight text-[color:var(--d-ink)]`}>
+              <Hexagon size={24} weight="fill" className="text-[color:var(--d-accent)]" />
+              {brand.name}
             </div>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/70">{footer.tagline}</p>
-            <p className="mt-4 text-sm text-white/55">{footer.serviceArea}</p>
-            <p className="mt-4 text-sm font-semibold text-white/85">{brand.phone}</p>
+            <p className="mt-3 max-w-sm text-sm leading-relaxed text-[color:var(--d-body)]">{footer.tagline}</p>
           </div>
-          {footer.columns.map((col) => (
-            <div key={col.title}>
-              <div className="text-sm font-semibold uppercase tracking-wide">{col.title}</div>
-              <ul className="mt-4 space-y-2.5 text-sm text-white/65">
-                {col.links.map((l) => (
-                  <li key={l} className="transition-colors hover:text-white">{l}</li>
-                ))}
-              </ul>
-            </div>
+          <div className="flex gap-2">
+            {socials.map(({ label, Icon }) => (
+              <a
+                key={label}
+                href="#top"
+                aria-label={label}
+                className="grid h-11 w-11 place-items-center rounded-full border border-[var(--d-line)] text-[color:var(--d-ink)] transition-colors hover:border-[var(--d-ink)]"
+              >
+                <Icon size={19} />
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-x-7 gap-y-2 border-t border-[var(--d-line)] py-6">
+          {nav.map((l) => (
+            <Link key={l.href} href={l.href} className="py-2 text-sm font-medium text-[color:var(--d-body)] transition-colors hover:text-[color:var(--d-ink)]">
+              {l.label}
+            </Link>
           ))}
+          <span className="text-sm text-[color:var(--d-muted)]">{footer.serviceArea}</span>
         </div>
-        <div className="flex flex-col gap-2 border-t border-white/10 py-6 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between">
+
+        <div className="flex flex-col gap-2 border-t border-[var(--d-line)] py-6 text-xs text-[color:var(--d-muted)] sm:flex-row sm:items-center sm:justify-between">
           <span>&copy; 2026 {brand.full}. {brand.city}.</span>
-          <span>
-            A Buntra concept build.{' '}
-            <Link href="/work" className="underline underline-offset-2 hover:text-white/80">Back to work</Link>
-          </span>
+          <Link href="/work" className="underline underline-offset-2 transition-colors hover:text-[color:var(--d-ink)]">
+            A concept build by Buntra
+          </Link>
         </div>
-      </DContainer>
+      </Container>
     </footer>
   );
 }

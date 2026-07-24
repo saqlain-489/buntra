@@ -4,12 +4,12 @@ import { theme, fontClass } from './theme';
 import { brand } from './content';
 import { Nav } from './Nav';
 import { Hero } from './Hero';
-import { EmergencyMarquee } from './EmergencyMarquee';
-import { Services } from './Services';
-import { WhyUs } from './WhyUs';
 import { Work } from './Work';
-import { Process } from './Process';
+import { About } from './About';
 import { Testimonials } from './Testimonials';
+import { Services } from './Services';
+import { Values } from './Values';
+import { Process } from './Process';
 import { Faq } from './Faq';
 import { Cta } from './Cta';
 import { Footer } from './Footer';
@@ -22,12 +22,12 @@ export default function BayouCity() {
         <Nav />
         <main>
           <Hero />
-          <EmergencyMarquee />
-          <Services />
-          <WhyUs />
           <Work />
-          <Process />
+          <About />
           <Testimonials />
+          <Services />
+          <Values />
+          <Process />
           <Faq />
           <Cta />
         </main>

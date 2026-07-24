@@ -1,37 +1,33 @@
-import { Playfair_Display, Manrope } from 'next/font/google';
+import { Outfit } from 'next/font/google';
 
 // Fonts load only on routes that import this module (not the Buntra homepage).
-const display = Playfair_Display({
+// One geometric family carries the whole dark design: black for display, light for body.
+const outfit = Outfit({
   subsets: ['latin'],
-  weight: ['500', '600', '700', '800'],
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
   variable: '--font-summit-display',
   display: 'swap',
 });
-const body = Manrope({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-summit-body',
-  display: 'swap',
-});
 
-export const fontClass = `${display.variable} ${body.variable}`;
+export const fontClass = outfit.variable;
 
-// Slate + snow-white + azure. Sharp radius, editorial/high-end.
+// Deep midnight + glass + neon blue/purple accents. Premium dark agency look.
 export const theme: Record<string, string> = {
-  '--d-bg': '#ffffff',
-  '--d-bg-alt': '#f3f6f9',
-  '--d-surface': '#ffffff',
-  '--d-line': '#e3e8ee',
-  '--d-ink': '#212a33',
-  '--d-body': '#586472',
-  '--d-muted': '#98a3b0',
-  '--d-primary': '#242e39',
-  '--d-on-primary': '#ffffff',
-  '--d-accent': '#3d7fd6',
-  '--d-accent-strong': '#2c66b4',
-  '--d-accent-soft': '#eaf1fb',
-  '--d-radius': '8px',
-  '--d-radius-lg': '14px',
+  '--d-bg': '#0c1128',
+  '--d-bg-alt': '#101736',
+  '--d-surface': '#131a3d',
+  '--d-line': 'rgba(255,255,255,0.10)',
+  '--d-ink': '#ffffff',
+  '--d-body': '#d1d5db',
+  '--d-muted': '#9ca3af',
+  '--d-primary': '#ffffff',
+  '--d-on-primary': '#0c1128',
+  '--d-accent': '#00f0ff',
+  '--d-accent-strong': '#7cd6ff',
+  '--d-accent-soft': 'rgba(0,240,255,0.08)',
+  '--d-accent-2': '#b026ff',
+  '--d-radius': '14px',
+  '--d-radius-lg': '24px',
   '--d-font-display': 'var(--font-summit-display)',
-  '--d-font-body': 'var(--font-summit-body)',
+  '--d-font-body': 'var(--font-summit-display)',
 };

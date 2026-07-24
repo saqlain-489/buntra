@@ -1,48 +1,72 @@
+import { Quotes, ShieldCheck } from '@phosphor-icons/react/dist/ssr';
 import { Container, Section } from './primitives';
 import { Reveal } from './Reveal';
 import { founder, brand } from '@/lib/content';
+
+const display = 'font-[family-name:var(--font-display)]';
 
 export function Founder() {
   return (
     <Section id="founder" alt>
       <Container>
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16">
-          {/* Identity */}
+        <div className="mx-auto max-w-3xl">
           <Reveal>
-            <div className="rounded-2xl bg-white p-8 ring-1 ring-[var(--color-line)]">
-              <span className="grid h-20 w-20 place-items-center rounded-full bg-[var(--color-ink)] font-[family-name:var(--font-display)] text-2xl font-extrabold text-white ring-4 ring-[var(--color-accent)]/30">
-                {founder.initials}
+            <div className="flex items-center gap-3">
+              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-strong)]">
+                {founder.label}
               </span>
-              <p className="mt-6 font-[family-name:var(--font-display)] text-xl font-bold text-[var(--color-ink)]">
-                {founder.name}
-              </p>
-              <p className="mt-1 text-[15px] text-[var(--color-body)]">{founder.role}</p>
-              <div className="mt-6 flex items-center gap-2 border-t border-[var(--color-line)] pt-6 text-[13px] font-medium text-[var(--color-muted)]">
-                <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" />
-                Based in {brand.city}, working with roofers everywhere
-              </div>
+              <span className="h-px flex-1 bg-[var(--color-line)]" />
             </div>
           </Reveal>
 
-          {/* The note */}
-          <Reveal delay={0.08}>
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.12em] text-[var(--color-accent-strong)]">
-                {founder.label}
+          {/* Opening line: the hook, oversized, with a quiet quote mark */}
+          <Reveal delay={0.05}>
+            <div className="relative mt-7">
+              <Quotes
+                aria-hidden
+                size={54}
+                weight="fill"
+                className="absolute -left-1 -top-6 text-[var(--color-accent)]/12"
+              />
+              <p className={`${display} relative text-[clamp(1.5rem,3.2vw,2.15rem)] font-bold leading-[1.2] tracking-tight text-[var(--color-ink)]`}>
+                {founder.paragraphs[0]}
               </p>
-              <div className="mt-5 space-y-5">
-                <p className="font-[family-name:var(--font-display)] text-2xl font-bold leading-[1.28] tracking-tight text-[var(--color-ink)]">
-                  {founder.paragraphs[0]}
+            </div>
+          </Reveal>
+
+          {/* Body */}
+          <Reveal delay={0.1}>
+            <p className="mt-6 text-lg leading-relaxed text-[var(--color-body)]">
+              {founder.paragraphs[1]}
+            </p>
+          </Reveal>
+
+          {/* The promise, pulled out as a risk-reversal callout */}
+          <Reveal delay={0.15}>
+            <div className="mt-7 flex items-start gap-4 rounded-2xl border border-[var(--color-line)] bg-white p-6 shadow-sm">
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[var(--color-accent-soft)] text-[var(--color-accent)]">
+                <ShieldCheck size={24} weight="duotone" />
+              </span>
+              <p className="text-[15px] font-medium leading-relaxed text-[var(--color-ink)]">
+                {founder.paragraphs[2]}
+              </p>
+            </div>
+          </Reveal>
+
+          {/* Signature */}
+          <Reveal delay={0.2}>
+            <div className="mt-9 flex items-center gap-4 border-t border-[var(--color-line)] pt-8">
+              <span className={`${display} grid h-14 w-14 shrink-0 place-items-center rounded-full bg-[var(--color-ink)] text-lg font-extrabold text-white ring-4 ring-[var(--color-accent)]/25`}>
+                {founder.initials}
+              </span>
+              <div>
+                <p className={`${display} text-lg font-bold text-[var(--color-ink)]`}>
+                  <span className="accent-underline">{founder.name}</span>
                 </p>
-                {founder.paragraphs.slice(1).map((p) => (
-                  <p key={p} className="text-lg leading-relaxed text-[var(--color-body)]">
-                    {p}
-                  </p>
-                ))}
+                <p className="mt-0.5 text-sm text-[var(--color-body)]">
+                  {founder.role} · {brand.city}
+                </p>
               </div>
-              <p className="mt-8 inline-block font-[family-name:var(--font-display)] text-lg font-bold text-[var(--color-ink)]">
-                <span className="accent-underline">{founder.name}</span>
-              </p>
             </div>
           </Reveal>
         </div>

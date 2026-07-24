@@ -9,98 +9,92 @@ export const brand = {
 };
 
 export const nav = [
+  { label: 'Work', href: '#work' },
   { label: 'Services', href: '#services' },
-  { label: 'Why us', href: '#why' },
-  { label: 'Storm work', href: '#work' },
-  { label: 'Process', href: '#process' },
-  { label: 'Reviews', href: '#reviews' },
+  { label: 'About', href: '#about' },
   { label: 'FAQ', href: '#faq' },
 ];
 
 export const hero = {
-  badge: '24/7 storm response',
-  headline: ['When the storm', 'hits Houston,', 'we hit back.'],
-  sub: 'Hurricane and hail specialists for Houston homeowners. We tarp fast, document every hit for your insurance, and get your roof watertight, usually within 7 days of approval.',
-  secondary: { label: 'Free storm inspection', href: '#estimate' },
-  cardValue: '90 min',
-  cardLabel: 'average tarp-up response',
-  trust: ['Licensed & insured', 'Local Houston crews'],
+  badge: 'Houston storm & hurricane pros',
+  headline: 'Roofs built to outlast Houston weather.',
+  sub: 'We tarp fast, document every hit for your insurance, and get your roof watertight in days, not months.',
+  primary: { label: 'Get a free inspection', href: '#contact' },
+  secondary: { label: 'See our work', href: '#work' },
+  proof: 'Trusted by Houston homeowners',
   heroSeed: 'bayou-hero-storm-roof',
 };
 
-export const marquee = [
-  '24/7 storm response',
-  'Free insurance inspection',
-  'Emergency tarp-up',
-  'Hail & wind specialists',
-  'Licensed & insured',
-  'Local Houston crews',
-];
-
-export const services = {
-  eyebrow: 'What we handle',
-  heading: 'Storm-ready roofing, start to finish',
-  sub: 'One local crew for the whole storm cycle, from the emergency tarp to the final nail.',
+export const work = {
+  badge: 'Recent work',
+  heading: 'Storm damage, gone',
+  sub: 'Houston roofs we brought back after hail, wind, and hurricane season.',
   items: [
     {
-      title: 'Storm & hail repair',
-      desc: 'Wind-lifted shingles, hail bruising, and hidden leaks found, documented, and fixed before the next front rolls in.',
-      icon: 'CloudLightning',
-      feature: true,
-      seed: 'bayou-svc-storm',
+      title: 'Katy hail replacement',
+      detail: 'Full shingle replacement after golf-ball hail, claim approved',
+      location: 'Katy, TX',
+      type: 'Hail restoration',
+      seed: 'bayou-work-katy',
     },
-    { title: 'Hurricane prep & reroof', desc: 'Wind-rated systems and sealed decking built to take a Gulf hurricane, not just survive a drizzle.', icon: 'Wind' },
-    { title: 'Full roof replacement', desc: 'Complete tear-off and rebuild by our own Houston crews, cleaned up to the last nail.', icon: 'House' },
-    { title: 'Insurance claim support', desc: 'Photo-documented, adjuster-ready damage reports so your claim gets paid, not lowballed.', icon: 'ClipboardText' },
-    { title: 'Emergency tarp-up', desc: 'Water pouring in? We tarp exposed roof fast to stop the damage while your claim gets moving.', icon: 'Umbrella' },
+    {
+      title: 'Heights wind repair',
+      detail: 'Wind-lifted shingles resealed and color matched',
+      location: 'The Heights',
+      type: 'Wind repair',
+      seed: 'bayou-work-heights',
+    },
+    {
+      title: 'Sugar Land tear-off',
+      detail: 'Complete tear-off and wind-rated rebuild',
+      location: 'Sugar Land, TX',
+      type: 'Replacement',
+      seed: 'bayou-work-sugarland',
+    },
+    {
+      title: 'Memorial restoration',
+      detail: 'Insurance-backed restoration after spring storms',
+      location: 'Memorial',
+      type: 'Restoration',
+      seed: 'bayou-work-memorial',
+    },
+    {
+      title: 'Pearland emergency tarp',
+      detail: 'Same-night tarp-up, then a fully documented claim',
+      location: 'Pearland, TX',
+      type: 'Emergency',
+      seed: 'bayou-work-pearland',
+    },
+    {
+      title: 'Cypress ridge rebuild',
+      detail: 'Ridge and decking rebuilt to hurricane spec',
+      location: 'Cypress, TX',
+      type: 'Reroof',
+      seed: 'bayou-work-cypress',
+    },
   ],
+  aboutLabel: 'About us',
+  allLabel: 'See all work',
 };
 
-export const why = {
-  eyebrow: 'Why Bayou City',
-  heading: 'Houston storm season is our whole job',
-  sub: 'When a Gulf storm rolls through, you need a crew that answers the phone at 2 a.m. and knows how insurance works. That is us.',
-  points: [
-    { title: 'We answer, day or night', desc: 'A real local crew picks up 24/7. No call center, no next-week appointment while water hits your ceiling.' },
-    { title: 'We fight for your claim', desc: 'We meet your adjuster on the roof and document every hit, so the storm damage actually gets covered.' },
-    { title: 'Watertight in 7 days', desc: 'Once your claim is approved, our Houston crews get you sealed up fast, usually inside a week.' },
+export const about = {
+  badge: 'Our experience',
+  heading: 'Built for Houston weather',
+  paragraphs: [
+    'Our crews are local, licensed, and on call through every storm season. When a Gulf front rolls in, we answer the phone.',
+    'We work insurance first: photo-documented inspections, adjuster meetings on the roof, and claims that reflect the real damage.',
   ],
-  stats: [
+  // Generic, illustrative stats. Do not present as verified metrics.
+  metrics: [
+    { value: '24/7', label: 'Storm response line' },
     { value: '2,000+', label: 'Houston roofs restored' },
-    { value: '24/7', label: 'storm response line' },
-    { value: '4.9', label: 'average homeowner rating' },
-    { value: '7 days', label: 'typical time to watertight' },
-  ],
-};
-
-export const work = {
-  eyebrow: 'Recent storm work',
-  heading: 'Roofs we got back under cover',
-  items: [
-    { title: 'Katy hail replacement', tag: 'Hail', seed: 'bayou-work-katy' },
-    { title: 'The Heights wind repair', tag: 'Wind', seed: 'bayou-work-heights' },
-    { title: 'Sugar Land full tear-off', tag: 'Replacement', seed: 'bayou-work-sugarland' },
-    { title: 'Memorial storm restoration', tag: 'Restoration', seed: 'bayou-work-memorial' },
-    { title: 'Pearland emergency tarp', tag: 'Emergency', seed: 'bayou-work-pearland' },
-    { title: 'Cypress ridge rebuild', tag: 'Reroof', seed: 'bayou-work-cypress' },
-  ],
-};
-
-export const process = {
-  eyebrow: 'How it works',
-  heading: 'From storm to sealed, the insurance-smart way',
-  steps: [
-    { title: 'Call us 24/7', desc: 'Storm hit? Call any hour. We log the damage and get a crew rolling toward you.' },
-    { title: 'Emergency tarp-up', desc: 'We tarp exposed roof fast to stop water before it wrecks ceilings and drywall.' },
-    { title: 'Free documented inspection', desc: 'We climb up, photograph every hit, and build an adjuster-ready damage report.' },
-    { title: 'We meet your adjuster', desc: 'We stand on the roof with your insurance adjuster so nothing gets missed or lowballed.' },
-    { title: 'Repair & final walkthrough', desc: 'Our crews install it right, haul off every nail, and walk the finished roof with you.' },
+    { value: '7 days', label: 'From approval to watertight' },
   ],
 };
 
 export const testimonials = {
-  eyebrow: 'What Houston says',
-  heading: 'Neighbors we got back under a solid roof',
+  badge: 'Kind words',
+  heading: 'Neighbors back under solid roofs',
   note: 'Illustrative reviews for this concept build.',
   items: [
     {
@@ -121,8 +115,80 @@ export const testimonials = {
   ],
 };
 
+export const services = {
+  badge: 'Services',
+  heading: 'What we do best',
+  sub: 'One local crew for the whole storm cycle, from the emergency tarp to the final nail.',
+  items: [
+    {
+      title: 'Storm & hail repair',
+      desc: 'Wind-lifted shingles, hail bruising, and hidden leaks found, documented, and fixed before the next front.',
+      icon: 'CloudLightning',
+    },
+    {
+      title: 'Hurricane preparation',
+      desc: 'Wind-rated systems and sealed decking built to take a Gulf hurricane, not just survive a drizzle.',
+      icon: 'Wind',
+    },
+    {
+      title: 'Full roof replacement',
+      desc: 'Complete tear-off and rebuild by our own Houston crews, cleaned up to the last nail.',
+      icon: 'House',
+    },
+    {
+      title: 'Insurance claim help',
+      desc: 'Photo-documented, adjuster-ready damage reports so your claim gets paid, not lowballed.',
+      icon: 'ClipboardText',
+    },
+    {
+      title: 'Emergency tarp-up',
+      desc: 'Water pouring in? We tarp exposed roof fast to stop the damage while your claim gets moving.',
+      icon: 'Umbrella',
+    },
+    {
+      title: 'Inspections & maintenance',
+      desc: 'Seasonal checkups that catch loose shingles and small leaks before the next storm finds them.',
+      icon: 'MagnifyingGlass',
+    },
+  ],
+};
+
+export const values = {
+  badge: 'Our values',
+  heading: 'Principles that guide us',
+  items: [
+    {
+      title: 'Integrity',
+      desc: 'Straight talk on what your roof needs and what it does not.',
+      icon: 'Handshake',
+    },
+    {
+      title: 'Homeowner first',
+      desc: 'Your claim, your schedule, your call. We work around you.',
+      icon: 'UsersThree',
+    },
+    {
+      title: 'Craftsmanship',
+      desc: 'Certified crews, documented work, and a roof done right the first time.',
+      icon: 'Medal',
+    },
+  ],
+};
+
+export const process = {
+  badge: 'How claims work',
+  heading: 'From storm to sealed',
+  steps: [
+    { title: 'Call us 24/7', desc: 'Storm hit? Call any hour. We log the damage and get a crew rolling toward you.' },
+    { title: 'Emergency tarp-up', desc: 'We tarp exposed roof fast to stop water before it wrecks ceilings and drywall.' },
+    { title: 'Documented inspection', desc: 'We climb up, photograph every hit, and build an adjuster-ready damage report.' },
+    { title: 'We meet your adjuster', desc: 'We stand on the roof with your insurance adjuster so nothing gets missed or lowballed.' },
+    { title: 'Repair & walkthrough', desc: 'Our crews install it right, haul off every nail, and walk the finished roof with you.' },
+  ],
+};
+
 export const faq = {
-  eyebrow: 'Storm questions',
+  badge: 'Good questions',
   heading: 'Storm and insurance questions, answered',
   items: [
     { q: 'My roof is leaking right now. How fast can you come?', a: 'Call our 24/7 line and we get a crew rolling to tarp exposed areas fast, usually within a couple of hours, so water stops before it reaches your ceilings.' },
@@ -134,18 +200,14 @@ export const faq = {
 };
 
 export const cta = {
-  heading: "Storm damage? Don't wait.",
-  sub: 'Every hour of water is more damage. Call now for a free storm inspection and same-day emergency tarp-up.',
-  primaryLabel: 'Free storm inspection',
-  primaryHref: '#estimate',
-  phoneLabel: 'Or call 24/7',
+  badge: 'Storm coming?',
+  heading: 'Do not wait for the next storm.',
+  sub: 'A free inspection today beats a flooded living room tomorrow. We answer around the clock.',
+  primaryLabel: 'Get a free inspection',
+  secondaryLabel: 'See our work',
 };
 
 export const footer = {
   tagline: 'Houston storm and hurricane roofing. We answer 24/7 and fight for your claim.',
-  columns: [
-    { title: 'Services', links: ['Storm & hail repair', 'Hurricane reroof', 'Full replacement', 'Insurance claims', 'Emergency tarp-up'] },
-    { title: 'Company', links: ['Why Bayou City', 'Storm work', 'Process', 'Reviews', 'Contact'] },
-  ],
   serviceArea: 'Serving Houston and the greater Gulf Coast.',
 };

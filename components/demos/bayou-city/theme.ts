@@ -1,38 +1,37 @@
-import { Oswald, Inter } from 'next/font/google';
+import { Sora, Inter } from 'next/font/google';
 
 // Fonts load only on routes that import this module (not the Buntra homepage).
-const display = Oswald({
+const display = Sora({
   subsets: ['latin'],
-  weight: ['500', '600', '700'],
+  weight: ['500', '600', '700', '800'],
   variable: '--font-bayou-display',
   display: 'swap',
 });
 const body = Inter({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '500', '600'],
   variable: '--font-bayou-body',
   display: 'swap',
 });
 
 export const fontClass = `${display.variable} ${body.variable}`;
 
-// Storm navy + teal + amber-urgency. Sharp radius, condensed-caps, emergency energy.
+// "Archeo" light architectural system: soft sky wash, deep navy, electric blue accents.
 export const theme: Record<string, string> = {
-  '--d-bg': '#ffffff',
-  '--d-bg-alt': '#eef4f5',
+  '--d-bg': '#f2f7fa',
+  '--d-bg-alt': '#ffffff',
   '--d-surface': '#ffffff',
-  '--d-line': '#dbe6e8',
-  '--d-ink': '#10222e',
-  '--d-body': '#48606a',
-  '--d-muted': '#8aa0a8',
-  '--d-primary': '#0f2a3d',
+  '--d-line': '#e2ebf2',
+  '--d-ink': '#0b192c',
+  '--d-body': '#46586d',
+  '--d-muted': '#8298ad',
+  '--d-primary': '#0b192c',
   '--d-on-primary': '#ffffff',
-  '--d-accent': '#0e8a7d',
-  '--d-accent-strong': '#0a6f64',
-  '--d-accent-soft': '#e0f2f0',
-  '--d-accent-2': '#f4a52b', // amber urgency pop (dark navy text when used as a fill)
-  '--d-radius': '4px',
-  '--d-radius-lg': '8px',
+  '--d-accent': '#0066ff',
+  '--d-accent-strong': '#0052cc',
+  '--d-accent-soft': '#ebf3fa',
+  '--d-radius': '16px',
+  '--d-radius-lg': '24px',
   '--d-font-display': 'var(--font-bayou-display)',
   '--d-font-body': 'var(--font-bayou-body)',
 };

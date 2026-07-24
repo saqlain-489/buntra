@@ -2,43 +2,45 @@
 
 import { useState } from 'react';
 import { Plus, Minus } from '@phosphor-icons/react';
-import { DContainer, DSection, DHeading, DEyebrow } from '../kit/primitives';
+import { DContainer, DSection } from '../kit/primitives';
 import { faq } from './content';
-
-const display = 'font-[family-name:var(--d-font-display)]';
 
 export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
   return (
     <DSection id="faq" alt>
       <DContainer>
-        <div className="max-w-2xl">
-          <DEyebrow>{faq.eyebrow}</DEyebrow>
-          <DHeading className="mt-4 text-3xl leading-tight sm:text-4xl">{faq.heading}</DHeading>
-        </div>
+        <h2 className="max-w-2xl text-3xl font-black leading-[1.1] tracking-tighter text-white sm:text-5xl">
+          {faq.heading}
+        </h2>
 
-        <div className="mx-auto mt-10 max-w-3xl divide-y divide-[var(--d-line)] border-y border-[var(--d-line)]">
+        <div className="mx-auto mt-10 max-w-3xl divide-y divide-white/10 border-y border-white/10">
           {faq.items.map((item, i) => {
             const isOpen = open === i;
             return (
               <div key={item.q}>
                 <button
                   onClick={() => setOpen(isOpen ? null : i)}
-                  className="flex w-full items-center justify-between gap-4 py-5 text-left"
+                  className="flex min-h-[44px] w-full items-center justify-between gap-4 py-5 text-left"
                   aria-expanded={isOpen}
                 >
-                  <span className={`${display} text-lg font-bold text-[color:var(--d-ink)]`}>{item.q}</span>
+                  <span className="text-base font-bold tracking-tight text-white sm:text-lg">{item.q}</span>
                   <span
-                    className={`grid h-8 w-8 shrink-0 place-items-center rounded-full transition-colors ${
-                      isOpen ? 'bg-[var(--d-primary)] text-[color:var(--d-on-primary)]' : 'bg-[var(--d-bg)] text-[color:var(--d-ink)]'
+                    className={`grid h-9 w-9 shrink-0 place-items-center rounded-full border transition-colors ${
+                      isOpen ? 'border-white bg-white text-[#0c1128]' : 'border-white/20 text-white'
                     }`}
                   >
-                    {isOpen ? <Minus size={16} weight="bold" /> : <Plus size={16} weight="bold" />}
+                    {isOpen ? <Minus size={15} weight="bold" /> : <Plus size={15} weight="bold" />}
                   </span>
                 </button>
-                <div className="grid overflow-hidden transition-all duration-300 ease-out" style={{ gridTemplateRows: isOpen ? '1fr' : '0fr' }}>
+                <div
+                  className="grid overflow-hidden transition-all duration-300 ease-out"
+                  style={{ gridTemplateRows: isOpen ? '1fr' : '0fr' }}
+                >
                   <div className="min-h-0">
-                    <p className="pb-6 pr-10 text-[15px] leading-relaxed text-[color:var(--d-body)]">{item.a}</p>
+                    <p className="pb-6 pr-10 text-[15px] font-light leading-relaxed text-[color:var(--d-body)]">
+                      {item.a}
+                    </p>
                   </div>
                 </div>
               </div>

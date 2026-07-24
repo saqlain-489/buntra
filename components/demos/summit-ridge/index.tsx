@@ -4,9 +4,10 @@ import { theme, fontClass } from './theme';
 import { brand } from './content';
 import { Nav } from './Nav';
 import { Hero } from './Hero';
+import { TrustTicker } from './TrustTicker';
 import { Services } from './Services';
-import { WhyUs } from './WhyUs';
 import { Work } from './Work';
+import { About } from './About';
 import { Testimonials } from './Testimonials';
 import { Process } from './Process';
 import { Faq } from './Faq';
@@ -17,13 +18,14 @@ export default function SummitRidge() {
   return (
     <>
       <HonestyBanner site={brand.full} />
-      <ThemeScope theme={theme} fontClass={fontClass}>
+      <ThemeScope theme={theme} fontClass={fontClass} className="selection:bg-blue-500/30">
         <Nav />
         <main>
           <Hero />
+          <TrustTicker />
           <Services />
-          <WhyUs />
           <Work />
+          <About />
           <Testimonials />
           <Process />
           <Faq />

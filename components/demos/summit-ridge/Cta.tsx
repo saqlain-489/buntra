@@ -1,42 +1,39 @@
-import Link from 'next/link';
-import { Phone } from '@phosphor-icons/react/dist/ssr';
 import { DContainer } from '../kit/primitives';
 import { Reveal } from '../kit/Reveal';
 import { cta, brand } from './content';
 
-const display = 'font-[family-name:var(--d-font-display)]';
+const pillPrimary =
+  'inline-flex items-center justify-center rounded-full bg-white px-8 py-4 text-sm font-bold text-[#0c1128] shadow-[0_0_20px_rgba(255,255,255,0.2)] transition-transform duration-200 hover:scale-105 active:scale-95';
+const pillGhost =
+  'inline-flex items-center justify-center rounded-full border border-white/20 px-8 py-4 text-sm font-bold text-white transition duration-200 hover:scale-105 hover:bg-white/10 active:scale-95';
 
 export function Cta() {
   return (
-    <section id="estimate" className="bg-[var(--d-bg)] py-20 md:py-28">
-      <DContainer>
+    <section id="contact" className="relative overflow-hidden bg-[var(--d-bg)] py-24 md:py-32">
+      <span
+        aria-hidden
+        className="absolute left-1/2 top-1/2 h-[420px] w-[640px] max-w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 blur-[100px]"
+      />
+      <DContainer className="relative text-center">
         <Reveal>
-          <div className="relative overflow-hidden rounded-[var(--d-radius-lg)] bg-[var(--d-primary)] px-8 py-14 text-center md:px-16 md:py-20">
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_50%_-20%,var(--d-accent),transparent_55%)] opacity-25"
-            />
-            <div className="relative">
-              <h2 className={`${display} mx-auto max-w-2xl text-3xl font-bold leading-[1.08] text-[color:var(--d-on-primary)] sm:text-4xl md:text-5xl`}>
-                {cta.heading}
-              </h2>
-              <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-white/75">{cta.sub}</p>
-              <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <Link
-                  href={cta.primary.href}
-                  className="inline-flex items-center justify-center gap-2 rounded-[var(--d-radius)] bg-[var(--d-on-primary)] px-7 py-4 text-[15px] font-semibold text-[color:var(--d-primary)] transition hover:-translate-y-0.5 hover:brightness-95"
-                >
-                  {cta.primary.label}
-                </Link>
-                <a
-                  href={`tel:${brand.phone.replace(/\D/g, '')}`}
-                  className="inline-flex items-center gap-2 text-[15px] font-semibold text-white/85 transition hover:text-white"
-                >
-                  <Phone size={16} weight="fill" className="text-[color:var(--d-accent)]" />
-                  {cta.phoneLabel} {brand.phone}
-                </a>
-              </div>
-            </div>
+          <h2 className="mx-auto max-w-3xl text-4xl font-black leading-[1.05] tracking-tighter text-white sm:text-6xl md:text-7xl">
+            {cta.heading[0]}{' '}
+            <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+              {cta.heading[1]}
+            </span>
+          </h2>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <p className="mx-auto mt-6 max-w-xl text-lg font-light leading-relaxed text-[color:var(--d-body)]">{cta.sub}</p>
+        </Reveal>
+        <Reveal delay={0.14}>
+          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <a href={`tel:${brand.phone.replace(/\D/g, '')}`} className={pillPrimary}>
+              {cta.primaryLabel}
+            </a>
+            <a href={`mailto:${brand.email}`} className={pillGhost}>
+              {cta.secondaryLabel}
+            </a>
           </div>
         </Reveal>
       </DContainer>

@@ -10,75 +10,90 @@ export const brand = {
 
 export const nav = [
   { label: 'Services', href: '#services' },
-  { label: 'Why us', href: '#why' },
   { label: 'Work', href: '#work' },
-  { label: 'Reviews', href: '#reviews' },
-  { label: 'FAQ', href: '#faq' },
+  { label: 'About', href: '#about' },
+  { label: 'Contact', href: '#contact' },
 ];
 
 export const hero = {
-  eyebrow: 'Premium residential roofing',
-  headline: ['A roof you will never', 'think about again.'],
-  sub: 'Summit Ridge builds and restores residential roofs with materials and craftsmanship made for the long haul. Licensed, insured, and guaranteed for 25 years.',
-  primary: { label: 'Get a free estimate', href: '#estimate' },
-  secondary: { label: 'See recent work', href: '#work' },
-  badge: { top: '25-year', bottom: 'workmanship warranty' },
-  heroSeed: 'summit-ridge-hero-home',
+  // Layer A: the sketch. Layer B: the real thing, revealed on scroll.
+  outline: {
+    headline: 'Imagine the perfect roof.',
+    img: 'https://strvid.nyc3.cdn.digitaloceanspaces.com/cloudinary/hero_city_outline_fzg37d.jpg',
+  },
+  reveal: {
+    headline: 'We build the reality.',
+    sub: 'Premium residential roofs, built by our own crews and guaranteed for 25 years.',
+    img: 'https://strvid.nyc3.cdn.digitaloceanspaces.com/cloudinary/hero_city_iglhwn.jpg',
+    primary: { label: 'Get a free estimate', href: '#contact' },
+    secondary: { label: 'See our work', href: '#work' },
+  },
 };
 
-export const stats = [
-  { value: '1,400+', label: 'roofs completed' },
-  { value: '25 yr', label: 'workmanship warranty' },
-  { value: '4.9', label: 'average rating' },
-  { value: 'A+', label: 'BBB accredited' },
-];
+export const ticker = {
+  heading: 'Trusted by homeowners across the Front Range',
+  items: [
+    { label: 'Licensed & insured', icon: 'ShieldCheck' },
+    { label: '25-year workmanship warranty', icon: 'SealCheck' },
+    { label: 'BBB A+ accredited', icon: 'Medal' },
+    { label: '4.9 average rating', icon: 'Star' },
+    { label: 'Manufacturer-certified crews', icon: 'Certificate' },
+    { label: 'Storm & hail specialists', icon: 'CloudLightning' },
+  ],
+};
 
 export const services = {
-  eyebrow: 'What we do',
-  heading: 'Roofing done right, the first time',
+  heading: 'Roofing built specifically for your home',
   items: [
     {
       title: 'Roof replacement',
       desc: 'Full tear-off and rebuild with architectural shingle, metal, or tile, installed by our own crews, never subcontracted out.',
       icon: 'House',
-      feature: true,
-      seed: 'summit-svc-replace',
     },
-    { title: 'Roof repair', desc: 'Leaks, missing shingles, and flashing fixed fast, before small problems become expensive ones.', icon: 'Wrench' },
-    { title: 'Storm & hail restoration', desc: 'Documented inspections and insurance-ready reports to restore your roof after the weather hits.', icon: 'CloudLightning' },
-    { title: 'Inspections & maintenance', desc: 'Annual check-ups that catch wear early and keep your warranty valid for decades.', icon: 'MagnifyingGlass' },
-    { title: 'Gutters & exteriors', desc: 'Seamless gutters, fascia, and soffit that finish the job and protect your foundation.', icon: 'Drop' },
-  ],
-};
-
-export const why = {
-  eyebrow: 'Why Summit Ridge',
-  heading: 'Built like the mountains we are named for',
-  quote:
-    'We treat every roof like it is going on our own home. That is why our workmanship warranty runs 25 years, not five.',
-  attribution: 'The Summit Ridge crew',
-  points: [
-    { title: 'Our own crews', desc: 'No subcontractors. The team that quotes your roof is the team that builds it.' },
-    { title: 'Premium materials', desc: 'Manufacturer-certified installers of the shingles and metal systems that last longest.' },
-    { title: 'Straight pricing', desc: 'A clear, written quote up front. No surprise line items after the trucks arrive.' },
+    {
+      title: 'Roof repair',
+      desc: 'Leaks, missing shingles, and flashing fixed fast, before small problems become expensive ones.',
+      icon: 'Wrench',
+    },
+    {
+      title: 'Storm & hail restoration',
+      desc: 'Documented inspections and insurance-ready reports to restore your roof after the weather hits.',
+      icon: 'CloudLightning',
+    },
+    {
+      title: 'Gutters & exteriors',
+      desc: 'Seamless gutters, fascia, and soffit that finish the job and protect your foundation.',
+      icon: 'Drop',
+    },
   ],
 };
 
 export const work = {
-  eyebrow: 'Recent work',
-  heading: 'A look at the last few roofs',
+  heading: 'Recent work',
+  linkLabel: 'View all work',
   items: [
     { title: 'Cedar Hills full replacement', tag: 'Architectural shingle', seed: 'summit-work-cedar' },
     { title: 'Aspen Grove standing seam', tag: 'Metal roof', seed: 'summit-work-aspen' },
     { title: 'Boulder ridgeline restoration', tag: 'Hail restoration', seed: 'summit-work-boulder' },
     { title: 'Highlands tile rebuild', tag: 'Tile', seed: 'summit-work-highlands' },
-    { title: 'Wash Park repair & gutters', tag: 'Repair', seed: 'summit-work-washpark' },
     { title: 'Golden slate accent roof', tag: 'Slate', seed: 'summit-work-golden' },
   ],
 };
 
+export const about = {
+  heading: 'A roof is not just what it looks like. It is how it is built.',
+  paragraphs: [
+    'We treat every roof like it is going on our own home. No subcontractors, ever: the crew that quotes your roof is the crew that builds it, and our workmanship warranty runs 25 years, not five.',
+    'Manufacturer-certified installers, the shingle and metal systems that last longest, and one clear written price before the trucks arrive. That is the whole pitch.',
+  ],
+  stats: [
+    { value: '1,400+', label: 'roofs completed' },
+    { value: '25 yr', label: 'workmanship warranty' },
+    { value: '4.9', label: 'average rating' },
+  ],
+};
+
 export const testimonials = {
-  eyebrow: 'What homeowners say',
   heading: 'Neighbors who stopped worrying about their roof',
   note: 'Illustrative reviews for this concept build.',
   items: [
@@ -101,7 +116,6 @@ export const testimonials = {
 };
 
 export const process = {
-  eyebrow: 'How it works',
   heading: 'Four steps, zero surprises',
   steps: [
     { title: 'Free inspection', desc: 'We climb up, document everything, and show you photos of exactly what we find.' },
@@ -112,7 +126,6 @@ export const process = {
 };
 
 export const faq = {
-  eyebrow: 'Good questions',
   heading: 'Roofing questions, answered',
   items: [
     { q: 'How long does a roof replacement take?', a: 'Most residential roofs are completed in one to three days, weather permitting. We give you a firm timeline in your written quote.' },
@@ -124,17 +137,17 @@ export const faq = {
 };
 
 export const cta = {
-  heading: 'Ready for a roof that lasts?',
+  heading: ['Ready for a roof', 'done right?'],
   sub: 'Book a free, no-pressure inspection. We will show you exactly what your roof needs, and what it does not.',
-  primary: { label: 'Get a free estimate', href: '#estimate' },
-  phoneLabel: 'Or call',
+  primaryLabel: 'Get a free estimate',
+  secondaryLabel: 'Email us instead',
 };
 
 export const footer = {
   tagline: 'Premium residential roofing, built to outlast the weather.',
   columns: [
-    { title: 'Services', links: ['Roof replacement', 'Roof repair', 'Storm restoration', 'Inspections', 'Gutters'] },
-    { title: 'Company', links: ['About', 'Recent work', 'Reviews', 'Careers', 'Contact'] },
+    { title: 'Services', links: ['Roof replacement', 'Roof repair', 'Storm restoration', 'Gutters & exteriors'] },
+    { title: 'Company', links: ['About', 'Recent work', 'Reviews', 'Contact'] },
   ],
   serviceArea: 'Serving Denver and the Front Range.',
 };
